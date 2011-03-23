@@ -1,5 +1,5 @@
 /**
- * jsMap
+ * Map
  * Map implementation for JavaScript
  *
  * @version   1.0
@@ -9,41 +9,72 @@
  */
 
 function Map() {
-    this.map = [];
+    this.array = [];
 }
 Map.prototype.put = function(key, value) {
     var index = this.getIndex(value.key);
-    if (index > 0) {
-        this.map[index] = {key: key, value: value};
+    if (index > -1) {
+        this.array[index] = {key: key, value: value};
     } else {
-        this.map.push({key: key, value: value});        
+        this.array.push({key: key, value: value});
     }
 };
 Map.prototype.get = function(key) {
     var index = this.getIndex(key);
-    if (index > 0) {
-        return this.map[index].value;
+    if (index > -1) {
+        return this.array[index].value;
     } else {
         return undefined;
     }
 };
+Map.prototype.getAtIndex = function(index) {
+    return this.array[index].value;
+};
 Map.prototype.remove = function(value) {
-    //TODO: check this is right
-    var index = this.getIndex(value.key);
-    var removed = [];
-    removed.push(this.map.slice(0, index -1));
-    removed.push(this.map.slice(index + 1));
-    this.map = removed;
+    var index = this.getIndexOfValue(value);
+    this.removeByIndex(index);
+};
+Map.prototype.removeByKey = function(key) {
+    var index = this.getIndex(key);
+    this.removeByIndex(index);
+};
+Map.prototype.removeByIndex = function(index) {
+    this.array.splice(index, 1);
 };
 Map.prototype.clear = function() {
-    //TODO: check this is right
-    this.map = new Array(0);
+    this.array = new Array(0);
+};
+Map.prototype.all = function() {
+    var retArray = [];
+    for (var i=0; i<this.array.length; i++) {
+        retArray.push(this.array[i].value);
+    }
+    return retArray;
 };
 Map.prototype.getIndex = function(key) {
     var index = -1;
-    for (var i=0; i<this.map.length; i++) {
-        var item = this.map[i];
-        if (item.key == key) index = i;        
+    for (var i=0; i<this.array.length; i++) {
+        var item = this.array[i];
+        if (item.key == key) index = i;
     }
     return index;
+};
+Map.prototype.getIndexOfValue = function(value) {
+    var index = -1;
+    for (var i=0; i<this.array.length; i++) {
+        var item = this.array[i];
+        if (item.value == value) index = i;
+    }
+    return index;
+};
+Map.prototype.contains = function(value) {
+    var index = this.getIndexOfValue(value);
+    return index > -1;
+};
+Map.prototype.containsKey = function(key) {
+    var index = this.getIndex(key);
+    return index > -1;
+};
+Map.prototype.size = function() {
+    return this.array.length;
 };
