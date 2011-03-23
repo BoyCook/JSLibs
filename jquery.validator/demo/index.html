@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>jQuery validator Example Page</title>
+		<link type="text/css" href="css/redmond/jquery-ui-1.8.2.custom.css" rel="stylesheet" />	
+		<link type="text/css" href="../lib/jquery.validator.css" rel="stylesheet" />			
+		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script>
+		<script type="text/javascript" src="../lib/jquery.validator.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#butSubmit').click(function(){
+					$('#validateDiv').validate();					
+				})
+			});
+		</script>
+	</head>
+	<body>
+	<h1>jQuery validator example</h1>
+
+	<div id='validateDiv'>
+		<table>
+			<tr>
+				<td>
+					Name:
+				</td>
+				<td>
+					<input type='text' id='txtName' class='required' style='width:150px;' />
+				</td>				
+			</tr>
+			<tr>				
+				<td>
+					Phone number:
+				</td>				
+				<td>
+					<input type='text' id='txtPhone' class='required' style='width:150px;' />
+				</td>				
+			</tr>
+			<tr>				
+				<td>
+					Email:
+				</td>				
+				<td>
+					<input type='text' id='txtEmail' class='required validate-email' style='width:150px;' />
+				</td>				
+			</tr>
+			<tr>				
+				<td>
+					Website:
+				</td>				
+				<td>
+					<input type='text' id='txtWebsite' class='required validate-url' style='width:150px;' />
+				</td>				
+			</tr>			
+			<tr>				
+				<td>
+					Role:
+				</td>				
+				<td>
+					<select id='selRole' class='required validate-dd' style='width:150px;'>
+						<option value="-1">-- Select --</option>
+						<option value="1">Project Manager</option>						
+						<option value="2">Scrum Master</option>												
+						<option value="3">Developer</option>																		
+						<option value="4">Technical Lead</option>						
+					</select>						
+				</td>				
+			</tr>			
+			<tr>				
+				<td colspan="2">
+					<input type='button' id='butSubmit' value='Submit'/>
+				</td>				
+			</tr>			
+		</table>			
+	</div>
+	
+	</body>
+</html>
+
+
