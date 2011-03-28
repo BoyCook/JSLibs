@@ -45,11 +45,7 @@ Map.prototype.clear = function() {
     this.array = new Array(0);
 };
 Map.prototype.all = function() {
-    var retArray = [];
-    for (var i=0; i<this.array.length; i++) {
-        retArray.push(this.array[i].value);
-    }
-    return retArray;
+    return this.array;
 };
 Map.prototype.getIndex = function(key) {
     var index = -1;
