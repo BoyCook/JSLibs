@@ -1,11 +1,16 @@
+//@tfamanaged
 /**
- * Map
- * Map implementation for JavaScript
- *
- * @version   1.0
- * @since     2010-07-01
- * @copyright Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
- * @author    Craig Cook
+ * @groupId 	>= org.cccs.jsLibs
+ * @artefactId 	>= jsMap
+ * @version   	>= 1.0
+ *	
+ * @name 		>= Map
+ * @description >= Map implementation for JavaScript
+ * @vcs			>= git
+ * @website		>= https://github.com/BoyCook/JSLibs
+ * @since     	>= 2010-07-01
+ * @copyright 	>= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
+ * @author    	>= Craig Cook
  */
 
 function Map() {

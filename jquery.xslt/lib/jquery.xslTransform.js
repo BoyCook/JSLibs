@@ -1,11 +1,16 @@
+//@tfamanaged
 /**
- * xslTransform
- * jQuery wrapper for Sarissa <http://sarissa.sourceforge.net/>
- *
- * @version   1.0
- * @since     2010-06-24
- * @copyright Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
- * @author    Craig Cook
+ * @groupId 	>= org.cccs.jsLibs
+ * @artefactId 	>= jquery.xslTransform
+ * @version   	>= 1.0
+ *	
+ * @name 		>= jquery.xslTransform
+ * @description >= jQuery wrapper for jsXslt and Sarissa
+ * @vcs			>= git
+ * @website		>= https://github.com/BoyCook/JSLibs
+ * @since     	>= 2010-07-01
+ * @copyright 	>= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
+ * @author    	>= Craig Cook
  * @requires  >= jQuery 1.4.2           http://jquery.com
  * @requires  >= jsXslt.js 1.0          http://craigcook.co.uk
  */

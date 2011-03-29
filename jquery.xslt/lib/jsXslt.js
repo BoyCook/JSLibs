@@ -1,15 +1,20 @@
+//@tfamanaged
 /**
- * XSLT
- * XSLT implementation for JavaScript
- *
- * @version   1.0
- * @since     2010-07-01
- * @copyright Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
- * @author    Craig Cook
- * @requires  >= jQuery 1.4.2           http://jquery.com
- * @requires  >= sarissa.js 0.9.9.4     http://sarissa.sourceforge.net
- * @requires  >= jsMap.js 1.0           https://github.com/BoyCook/JSLibs/tree/master/map
- * @requires  >= jquery.hintbox.js 1.0  https://github.com/BoyCook/JSLibs/tree/master/jquery.hintbox
+ * @groupId 	>= org.cccs.jsLibs
+ * @artefactId 	>= xslt
+ * @version   	>= 1.0
+ *	
+ * @name 		>= XSLT
+ * @description >= XSLT implementation for JavaScript using Sarissa
+ * @vcs			>= git
+ * @website		>= https://github.com/BoyCook/JSLibs
+ * @since     	>= 2010-07-01
+ * @copyright 	>= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
+ * @author    	>= Craig Cook
+ * @requires  	>= jQuery 1.4.2           http://jquery.com
+ * @requires  	>= sarissa.js 0.9.9.4     http://sarissa.sourceforge.net
+ * @requires  	>= jsMap.js 1.0           https://github.com/BoyCook/JSLibs/tree/master/map
+ * @requires  	>= jquery.hintbox.js 1.0  https://github.com/BoyCook/JSLibs/tree/master/jquery.hintbox
  */
 
 function XSLT() {

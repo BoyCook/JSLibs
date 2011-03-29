@@ -1,13 +1,19 @@
+//@tfamanaged
 /**
- * collapsible
- * jQuery plugin to make div collapsible
- *
- * @version   1.0
- * @since     2011-01-27
- * @copyright Copyright (c) 2011 CCCS Ltd. http://craigcook.co.uk
- * @author    Craig Cook
- * @requires  >= jQuery 1.4.2           http://jquery.com
+ * @groupId 	>= org.cccs.jsLibs
+ * @artefactId 	>= jquery.collapsible
+ * @version   	>= 1.0
+ *	
+ * @name 		>= jquery.collapsible
+ * @description >= Makes a div collapsible, similar to an accordion
+ * @vcs			>= git
+ * @website		>= https://github.com/BoyCook/JSLibs
+ * @since     	>= 2010-07-01
+ * @copyright 	>= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
+ * @author    	>= Craig Cook
+ * @requires  	>= jQuery 1.4.2           http://jquery.com
  */
+
 (function($) {
     $.fn.collapsible = function(open) {
         if (open == undefined) {
