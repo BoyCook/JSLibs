@@ -1,4 +1,3 @@
-//@tfamanaged
 /**
  * @groupId 	>= org.cccs.jsLibs
  * @artefactId 	>= jquery.collapsible

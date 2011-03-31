@@ -1,4 +1,3 @@
-//@tfamanaged
 /**
  * @groupId 	>= org.cccs.jsLibs
  * @artefactId 	>= jquery.xslTransform
@@ -11,8 +10,8 @@
  * @since     	>= 2010-07-01
  * @copyright 	>= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
  * @author    	>= Craig Cook
- * @requires  >= jQuery 1.4.2           http://jquery.com
- * @requires  >= jsXslt.js 1.0          http://craigcook.co.uk
+ * @requires    >= jQuery 1.4.2           http://jquery.com
+ * @requires    >= jsXslt.js 1.0          http://craigcook.co.uk
  */
 
 var xsltEngine = new XSLT();

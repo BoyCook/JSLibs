@@ -1,11 +1,15 @@
 /**
- * jsArray
- * Array extensions for JavaScript
- *
- * @version   1.0
- * @since     2010-07-01
- * @copyright Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
- * @author    Craig Cook
+ * @groupId 	>= org.cccs.jsLibs
+ * @artefactId 	>= jsArray
+ * @version   	>= 1.0
+ *	
+ * @name 		>= Array
+ * @description >= Array extenstions for JavaScript
+ * @vcs			>= git
+ * @website		>= https://github.com/BoyCook/JSLibs
+ * @since     	>= 2010-07-01
+ * @copyright 	>= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
+ * @author    	>= Craig Cook
  */
 
 Array.prototype.put = function(item) {
