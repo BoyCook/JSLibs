@@ -17,12 +17,33 @@
  */
 
 function XSLT() {
+	var context = this;
     this.xmls = new Map();
     this.xsls = new Map();
     this.beforeLoad = undefined;
     this.afterLoad = undefined;
-    this.unique = function () {}
+    this.unique = function () {};
+	this.http = function(url, callBack) {
+	    if (url.indexOf('?') == -1) {
+	        url = url + '?_random=' + context.unique();
+	    } else {
+	        url = url + '&_random=' + context.unique();
+	    }		
+		
+	    $.ajax({
+	        url: url,
+	        type: 'GET',
+	        dataType: 'xml',
+	        success: function(xml) {
+	            if (context.afterLoad) {
+	                context.afterLoad();
+	            }
+	            callBack(xml);
+	        }
+	    });		
+	};
 }
+
 XSLT.prototype.transform = function (element, processor, xml, callBack, callBackSelector, parameters) {
     var assetXml = Sarissa.getDomDocument();
     var modelView = $(element).data('modelView');
@@ -212,28 +233,14 @@ XSLT.prototype.functions = function(functions) {
 	if (functions.unique) {
     	this.unique = functions.unique;		
 	}
+	if (functions.http) {
+		this.http = functions.http;
+	}
 };
 XSLT.prototype.loadUrl = function(url, callBack) {
     var context = this;
     if (context.beforeLoad) {
         context.beforeLoad();
     }
-
-    if (url.indexOf('?') == -1) {
-        url = url + '?_random=' + this.unique();
-    } else {
-        url = url + '&_random=' + this.unique();
-    }
-
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'xml',
-        success: function(xml) {
-            if (context.afterLoad) {
-                context.afterLoad();
-            }
-            callBack(xml);
-        }
-    });
+	context.http(url, callBack);
 };

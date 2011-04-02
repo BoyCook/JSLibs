@@ -38,10 +38,10 @@ var xsltEngine = new XSLT();
             var xml = xsltEngine.xmls.get(xmlUrl);
 
             if (xsl != undefined) {
-                modelView.xsl = xsl.value;
+                modelView.xsl = xsl;
             }
             if (xml != undefined) {
-                modelView.xml = xml.value;
+                modelView.xml = xml;
             }
             $(element).data('modelView', modelView);
         } else {
