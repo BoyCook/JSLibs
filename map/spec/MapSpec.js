@@ -78,6 +78,11 @@ describe('Map', function(){
         expect(index).toEqual(2);
     });
 
+    it('should give -1 for incorrect key', function(){
+        var index = map.getIndex('This is made up');
+        expect(index).toEqual(-1);
+    });
+
     it('should get index of value correctly', function(){
         var index = map.getIndexOfValue('Charles Care');
         expect(index).toEqual(2);
@@ -91,6 +96,16 @@ describe('Map', function(){
     it('should know what it contains by key', function(){
         expect(map.containsKey('Charles')).toBeTruthy();
         expect(map.containsKey('Charles Doesnt Care')).toBeFalsy();
+    });
+
+    it('should get key by value', function(){
+        var key = map.getKeyOfValue('Charles Care');
+        expect(key).toEqual('Charles');
+    });
+
+    it('should return undefined for unknown key', function(){
+        var key = map.getKeyOfValue('This is made up');
+        expect(key).toBeUndefined();
     });
 
     it('should know what size it is', function(){

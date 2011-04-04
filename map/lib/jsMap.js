@@ -67,6 +67,14 @@ Map.prototype.getIndexOfValue = function(value) {
     }
     return index;
 };
+Map.prototype.getKeyOfValue = function(value) {
+    var key = undefined;
+    for (var i=0; i<this.array.length; i++) {
+        var item = this.array[i];
+        if (item.value == value) key = item.key;
+    }
+    return key;
+};
 Map.prototype.contains = function(value) {
     var index = this.getIndexOfValue(value);
     return index > -1;
