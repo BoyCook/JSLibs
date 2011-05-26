@@ -2,7 +2,7 @@
  * @groupId 	>= org.cccs.jsLibs
  * @artefactId 	>= jquery.xslTransform
  * @version   	>= 1.0
- *	
+ *
  * @name 		>= jquery.xslTransform
  * @description >= jQuery wrapper for jsXslt and Sarissa
  * @vcs			>= git
@@ -17,26 +17,28 @@
 var xsltEngine = new XSLT();
 
 (function($) {
-    $.fn.xsltBind = function(xslUrl, xmlUrl, callBack, params) {
+    $.fn.xsltBind = function(params) {
         var element = this.selector;
         var modelView = $(element).data('modelView');
+        //Create new Model View binding
         if (modelView == undefined) {
             modelView = {
-                xslUrl: xslUrl,
+                xslUrl: params.xslUrl,
                 xsl: undefined,
-                xmlUrl: xmlUrl,
+                xmlUrl: params.xmlUrl,
                 xml: undefined,
                 transformed: undefined,
                 filterKey: undefined,
+                filterOnEnter: undefined,
                 filterParams: new Map(),
-                params: params ? params : new Map(),
-                callBack: callBack,
+                params: params.params ? params.params : new Map(),
+                callBack: params.callBack,
                 filterCallBack: undefined,
-                filterCallBackSelector: undefined
+                filterCallBackSelector: undefined,
+                filterOnEnterFunction: undefined
             };
-            var xsl = xsltEngine.xsls.get(xslUrl);
-            var xml = xsltEngine.xmls.get(xmlUrl);
-
+            var xsl = xsltEngine.xsls.get(params.xslUrl);
+            var xml = xsltEngine.xmls.get(params.xmlUrl);
             if (xsl != undefined) {
                 modelView.xsl = xsl;
             }
@@ -44,23 +46,31 @@ var xsltEngine = new XSLT();
                 modelView.xml = xml;
             }
             $(element).data('modelView', modelView);
-        } else {
-            if (modelView.xslUrl != xslUrl) {
-                modelView.xslUrl = xslUrl;
+        } else { //Update the existing Model View binding
+            if (modelView.xslUrl != params.xslUrl) {
+                modelView.xslUrl = params.xslUrl;
                 modelView.xsl = null;
             }
-            if (modelView.xmlUrl != xmlUrl) {
-                modelView.xmlUrl = xmlUrl;
+            if (modelView.xmlUrl != params.xmlUrl) {
+                modelView.xmlUrl = params.xmlUrl;
                 modelView.xml = null;
             }
         }
-        return modelView;
-    };
-    $.fn.transform = function(reloadXml) {
-        if (reloadXml == undefined) {
-            reloadXml = true;
+
+        var reloadXml = params.reloadXml != undefined ? params.reloadXml : true;
+        var filterable =  params.filterable != undefined ? params.filterable : false;
+
+        if (filterable) {
+            modelView.filterKey = (params.filterKey == undefined ? 'filter' : params.filterKey);
+            modelView.filterOnEnter = (params.onEnter == undefined ? false : params.onEnter);
+            modelView.filterCallBack = params.callBack;
+            modelView.filterCallBackSelector = params.callBackSelector;
+            modelView.filterOnEnterFunction = params.onEnterFunction;
         }
-        xsltEngine.loadModelView(this.selector, reloadXml, true);
+
+        xsltEngine.loadModelView(this.selector, reloadXml, !filterable);
+
+        return modelView;
     };
     $.fn.xsltClear = function() {
         $(this.selector).data('modelView', null);
@@ -69,15 +79,10 @@ var xsltEngine = new XSLT();
     $.fn.xsltFilter = function(filterKey, filterValue, callBack) {
         xsltEngine.filter(this.selector, filterKey, filterValue, callBack);
     };
-    $.fn.filterable = function(filterKey, callBack, callBackSelector) {
-        if (filterKey == undefined) {
-            filterKey = 'filter';
+    $.fn.transform = function(reloadXml) {
+        if (reloadXml == undefined) {
+            reloadXml = true;
         }
-        var element = this.selector;
-        var modelView = $(element).data('modelView');
-        modelView.filterKey = filterKey;
-        modelView.filterCallBack = callBack;
-        modelView.filterCallBackSelector = callBackSelector;
-        xsltEngine.loadModelView(element, true, false);
+        xsltEngine.loadModelView(this.selector, reloadXml, true);
     };
 })(jQuery);

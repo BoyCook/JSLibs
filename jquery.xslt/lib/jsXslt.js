@@ -152,9 +152,10 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform) {
                 if (transform) {
                     context.transform(element, modelView.xsl, modelView.xml, modelView.callBack, undefined, modelView.params.all());
                 } else { // It's filterable
-                    var size = $(modelView.xml.childNodes[0]).children().length;
-
-                    if (size > 1000) {
+                    if (!modelView.filterOnEnter && modelView.filterOnEnterFunction != undefined) {
+                        modelView.filterOnEnter = modelView.filterOnEnterFunction(modelView.xml);
+                    }
+                    if (modelView.filterOnEnter) {
                         if (modelView.callBack) {
                             modelView.callBack();
                         }
