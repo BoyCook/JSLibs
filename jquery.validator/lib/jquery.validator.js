@@ -24,7 +24,7 @@
         var context = this;
 
         $(id + ' .required, ' + id + ' [class*=validate]').each(function() {
-            if (!context.checkItem(this)) { //One false is invalid
+            if (!context.checkElement(this)) { //One false is invalid
                 isValid = false;
             }
         });
@@ -32,13 +32,14 @@
         return isValid;
     };
 
-    $.fn.checkItem = function(item) {
+    $.fn.checkElement = function(item) {
         var rule = this.getRule(item);
         var isValid = true;
 
-        //Only check ff it's required or has a value
+        //If there's no value and it's not required then there's no need to check
         if ($(item).hasClass('required') || (item.value != undefined && item.value.length > 0)) {
-            if (item.value.match(rule.pattern) == undefined) {
+            //Will fail on no match || no value
+            if (!this.checkValue(item.value, rule.pattern)) {
                 isValid = false;
                 var label = $("<label for=\"" + item.id + "\" generated=\"true\" class=\"" + rule.errorClass + "\">" + rule.errorMessage + "</label>");
                 $(item).addClass(rule.inputErrorClass);
@@ -54,7 +55,9 @@
 
         return isValid;
     };
-
+    $.fn.checkValue = function(value, pattern) {
+        return !(value.match(pattern) == undefined || value.length == 0);
+    };
     $.fn.getRule = function(elem) {
         var validator = new this.validator();
         var cssClass = 'required';
@@ -112,14 +115,14 @@
             errorClass: 'error',
             inputErrorClass: 'error',
             errorMessage: 'Version must be in the correct format e.g. v1.0.0.0',
-            pattern: "[v][0-9]\.[0-9]\.[0-9]\.[0-9]"
+            pattern: "^([v]{1,})([0-9]+)(\\.{1,}[\\d]+)(\\.{1,}[\\d]+)(\\.{1,}[\\d]+)$"
         };
         this.rules['validate-ein'] = {
             checkClass: 'validate-ein',
             errorClass: 'error',
             inputErrorClass: 'error',
             errorMessage: 'EIN must be nine numbers',
-            pattern: "[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+            pattern: "^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$"
         };
         this.rules['validate-email'] = {
             checkClass: 'validate-email',

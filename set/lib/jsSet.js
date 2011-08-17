@@ -12,7 +12,11 @@
  * @author    	>= Craig Cook
  */
 
-Array.prototype.put = function(item) {
+function Set() {}
+
+Set.prototype = new Array();
+Set.prototype.constructor = Set;
+Set.prototype.put = function(item) {
     var index = this.getIndex(item);
     if (index == -1) {
         this.push(item);
@@ -21,23 +25,23 @@ Array.prototype.put = function(item) {
     }
     return this.length;
 };
-Array.prototype.remove = function(item) {
+Set.prototype.remove = function(item) {
     this.removeByIndex(this.getIndex(item));
 };
-Array.prototype.removeByIndex = function(index) {
+Set.prototype.removeByIndex = function(index) {
     if (index > -1) {
         this.splice(index, 1);
     }
 };
-Array.prototype.containsKey = function(key) {
+Set.prototype.containsKey = function(key) {
     var item = this[key];
     return item != undefined;
 };
-Array.prototype.contains = function(item) {
+Set.prototype.contains = function(item) {
     var index = this.getIndex(item)
     return index > -1;
 };
-Array.prototype.getIndex = function(item) {
+Set.prototype.getIndex = function(item) {
     var index = -1;
     for (var i=0; i<this.length; i++) {
         if (this[i] == item) {

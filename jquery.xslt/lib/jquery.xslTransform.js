@@ -69,8 +69,13 @@ var xsltEngine = new XSLT();
         }
 
         xsltEngine.loadModelView(this.selector, reloadXml, !filterable);
-
         return modelView;
+    };
+    $.fn.transform = function(reloadXml) {
+        if (reloadXml == undefined) {
+            reloadXml = true;
+        }
+        xsltEngine.loadModelView(this.selector, reloadXml, true);
     };
     $.fn.xsltClear = function() {
         $(this.selector).data('modelView', null);
@@ -78,11 +83,5 @@ var xsltEngine = new XSLT();
     };
     $.fn.xsltFilter = function(filterKey, filterValue, callBack) {
         xsltEngine.filter(this.selector, filterKey, filterValue, callBack);
-    };
-    $.fn.transform = function(reloadXml) {
-        if (reloadXml == undefined) {
-            reloadXml = true;
-        }
-        xsltEngine.loadModelView(this.selector, reloadXml, true);
     };
 })(jQuery);
