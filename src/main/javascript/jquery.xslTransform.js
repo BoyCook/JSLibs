@@ -56,14 +56,15 @@ var xsltEngine = new XSLT();
                 modelView.xml = null;
             }
         }
-
+		
+		//TODO: consider making filterable implicit based upon filterKey
         var reloadXml = params.reloadXml != undefined ? params.reloadXml : true;
         var filterable =  params.filterable != undefined ? params.filterable : false;
 
         if (filterable) {
             modelView.filterKey = (params.filterKey == undefined ? 'filter' : params.filterKey);
             modelView.filterOnEnter = (params.onEnter == undefined ? false : params.onEnter);
-            modelView.filterCallBack = params.callBack;
+            modelView.filterCallBack = params.filterCallBack;
             modelView.filterCallBackSelector = params.callBackSelector;
             modelView.filterOnEnterFunction = params.onEnterFunction;
         }

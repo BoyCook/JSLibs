@@ -3,8 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
     <title>jQuery XSLT Example Page</title>
-    <link type="text/css" href="../javascript/lib/jquery-1.4.2/css/redmond/jquery-ui-1.8.2.custom.css"
-          rel="stylesheet"/>
+    <link type="text/css" href="../javascript/lib/jquery-1.4.2/css/redmond/jquery-ui-1.8.2.custom.css" rel="stylesheet"/>
     <link type="text/css" href="../../main/css/jquery.hintbox.css" rel="stylesheet"/>
     <script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-ui-1.8.2.custom.min.js"></script>
@@ -17,24 +16,40 @@
         $(function() {
             //Basic usage
             $('#contents1').xsltBind({
-                        xslUrl: 'xsl/cars.xsl',
-                        xmlUrl: 'xml/cars.xml'
-                    });
+                xslUrl: 'xsl/cars.xsl',
+                xmlUrl: 'xml/cars.xml'
+            });
             //Filtering example
             $('#contents2').xsltBind({
-                        xslUrl: 'xsl/people.xsl',
-                        xmlUrl: 'xml/people.xml',
-                        filterable: true,
-                        filterKey: ['filter1', 'filter2', 'filter3']
-                    });
+                xslUrl: 'xsl/people.xsl',
+                xmlUrl: 'xml/people.xml',
+                filterable: true,
+                filterKey: ['filter1', 'filter2', 'filter3']
+            });
+            //Filtering with callback example
+            $('#contents3').xsltBind({
+                xslUrl: 'xsl/people.xsl',
+                xmlUrl: 'xml/people.xml',
+                filterable: true,
+                filterKey: ['filter1', 'filter2', 'filter3'],
+                callBackSelector: '#contents3 table tr',
+                callBack: function() {
+                    $('#contents3 table').css('background-color', '#87cefa');
+                },
+                filterCallBack: function(selected) {
+                    if (selected) {
+                        alert(selected.length);
+                    }
+                }
+            });
             //Params example
             var params = new Map();
             params.put('filter1', 'cook');
-            $('#contents3').xsltBind({
-                        xslUrl: 'xsl/people.xsl',
-                        xmlUrl: 'xml/people.xml',
-                        params: params
-                    });
+            $('#contents4').xsltBind({
+                xslUrl: 'xsl/people.xsl',
+                xmlUrl: 'xml/people.xml',
+                params: params
+            });
         });
     </script>
     <style type="text/css">
@@ -44,17 +59,26 @@
     </style>
 </head>
 <body>
+<h3>Basic Usage:</h3>
 <div id='contents1'></div>
 <br/>
 <hr/>
 <br/>
 
+<h3>Filtering:</h3>
 <div id='contents2'></div>
 <br/>
 <hr/>
 <br/>
 
+<h3>Filtering with callback:</h3>
 <div id='contents3'></div>
+
+<br/>
+<hr/>
+<br/>
+
+<div id='contents4'></div>
 </body>
 </html>
 
