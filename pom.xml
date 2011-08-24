@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd'
+         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://maven.apache.org/POM/4.0.0'>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.cccs.jslibs</groupId>
+    <artifactId>jslibs</artifactId>
+    <name>JSLibs</name>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <parent>
+        <groupId>org.cccs.build</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptor>src/main/assembly/assembly.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.searls</groupId>
+                <artifactId>jasmine-maven-plugin</artifactId>
+                <version>1.0.2-beta-2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generateManualRunner</goal>
+                            <goal>resources</goal>
+                            <goal>testResources</goal>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <browserVersion>INTERNET_EXPLORER_7</browserVersion>
+                    <jsSrcDir>${project.basedir}/src/main/javascript</jsSrcDir>
+                    <jsTestSrcDir>${project.basedir}/src/test/javascript/spec</jsTestSrcDir>
+                    <!-- specify order in which JS sources should be loaded here-->
+                    <sourceIncludes>
+                        <include>jsMap.js</include>
+                        <include>jsSet.js</include>
+                        <include>http.utils.js</include>
+                        <include>xml.utils.js</include>
+                    </sourceIncludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

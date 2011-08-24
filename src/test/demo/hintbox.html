@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>jQuery hintbox Example Page</title>
+		<link type="text/css" href="../javascript/lib/jquery-1.4.2/css/redmond/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
+		<link type="text/css" href="../../main/css/jquery.hintbox.css" rel="stylesheet" />
+        <script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-ui-1.8.2.custom.min.js"></script>
+		<script type="text/javascript" src="../../main/javascript/jquery.hintbox.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#txtHint1').hintBox();
+				$('#txtHint2').hintBox('Type to filter...');				
+			});
+		</script>
+	</head>
+	<body>
+	<h1>jQuery hintbox example</h1>
+
+	<div>
+		<table>
+			<tr>
+				<td>
+					Default hintbox:
+				</td>
+				<td>
+					<input type='text' id='txtHint1' style='width:150px;' />					
+				</td>				
+			</tr>
+			<tr>
+				<td>
+					Specifying message:
+				</td>
+				<td>
+					<input type='text' id='txtHint2' style='width:150px;' />					
+				</td>				
+			</tr>			
+		</table>
+	</div>
+	</body>
+</html>
