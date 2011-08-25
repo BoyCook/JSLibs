@@ -28,6 +28,7 @@ describe('Map', function(){
 
     it('should update item correctly', function(){
         map.put('Craig', 'Craig Stephen Cook');
+        expect(map.size()).toEqual(5);
         var person = map.get('Craig');
         expect(person).toEqual('Craig Stephen Cook');
     });

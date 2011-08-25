@@ -106,7 +106,7 @@ XSLT.prototype.filterable = function(containerId, filterKey, onEnter, callBack) 
         var value = $('#' + filterId).val();
 
         if (size > 1000 && (value == undefined || value.length <3)) {
-            $.noticeAdd({ text: 'The result set it too large, you must filter by at least 3 characters', stay: true, type: 'error-notice'});
+            $.noticeAdd({ text: 'The result set it too large, you must filter by at least 3 characters', stay: false, type: 'error-notice'});
             return;
         }
 

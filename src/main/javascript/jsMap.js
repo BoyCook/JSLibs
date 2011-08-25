@@ -16,7 +16,7 @@ function Map() {
     this.array = [];
 }
 Map.prototype.put = function(key, value) {
-    var index = this.getIndex(value.key);
+    var index = this.getIndex(key);
     if (index > -1) {
         this.array[index] = {key: key, value: value};
     } else {
