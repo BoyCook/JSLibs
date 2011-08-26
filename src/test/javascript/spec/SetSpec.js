@@ -3,11 +3,11 @@ describe('Set', function(){
 
     beforeEach(function(){
         set = new Set();
-        set.push('Craig Cook');
-        set.push('Tim Watson');
-        set.push('Charles Care');
-        set.push('Richard Sheath');
-        set.push('Brian Francic');
+        set.add('Craig Cook');
+        set.add('Tim Watson');
+        set.add('Charles Care');
+        set.add('Richard Sheath');
+        set.add('Brian Francic');
 
         expect(set).toBeDefined();
         expect(set.size()).toEqual(5);
@@ -36,6 +36,20 @@ describe('Set', function(){
 		set.remove('Charles Care');
 		expect(set.size()).toEqual(4);
 		expect(set.contains('Charles Care')).toBeFalsy();
+    });
+
+    it('should not add item twice', function(){
+		set.add('Charles Care');
+		expect(set.size()).toEqual(5);
+		expect(set.contains('Charles Care')).toBeTruthy();
+    });
+
+    it('should add all correctly', function(){
+		set.addAll(['Foo bar', 'John Smith', 'Davy Jones']);
+		expect(set.size()).toEqual(8);
+		expect(set.contains('Foo bar')).toBeTruthy();
+        expect(set.contains('John Smith')).toBeTruthy();
+        expect(set.contains('Davy Jones')).toBeTruthy();
     });
 
     it('should clear properly', function(){
