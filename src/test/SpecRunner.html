@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>JS Libs Test Runner</title>
+    <link rel="stylesheet" type="text/css" href="javascript/lib/jasmine-1.0.2/jasmine.css">
+    <!-- Test libs-->
+    <script type="text/javascript" src="javascript/lib/jasmine-1.0.2/jasmine.js"></script>
+    <script type="text/javascript" src="javascript/lib/jasmine-1.0.2/jasmine-html.js"></script>
+    <script type="text/javascript" src="javascript/lib/jquery-1.4.2/jquery-1.4.2.min.js"></script>
+    <!-- Plain libs-->
+    <script type="text/javascript" src="../main/javascript/jsMap.js"></script>
+    <script type="text/javascript" src="../main/javascript/jsSet.js"></script>
+ 	<script type="text/javascript" src="../main/javascript/xml.utils.js"></script>
+    <script type="text/javascript" src="../main/javascript/http.utils.js"></script>
+    <!-- jQuery libs-->
+    <script type="text/javascript" src="../main/javascript/jquery.validator.js"></script>
+    <!-- Test specs-->
+    <script type="text/javascript" src="javascript/spec/MapSpec.js"></script>
+    <script type="text/javascript" src="javascript/spec/SetSpec.js"></script>
+    <script type="text/javascript" src="javascript/spec/XMLUtilsSpec.js"></script>
+    <script type="text/javascript" src="javascript/spec/HTTPServiceSpec.js"></script>
+    <script type="text/javascript" src="javascript/spec/ValidatorSpec.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+    jasmine.getEnv().execute();
+</script>
+
+</body>
+</html>
