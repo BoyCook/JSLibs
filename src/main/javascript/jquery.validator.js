@@ -14,15 +14,15 @@
  */
 
 (function($) {
-    $.validate = {
+    $.validator = {
         checkElement: function(item) {
-            var rule = $.validate.getRule(item);
+            var rule = $.validator.getRule(item);
             var isValid = true;
 
             //If there's no value and it's not required then there's no need to check
             if ($(item).hasClass('required') || (item.value != undefined && item.value.length > 0)) {
                 //Will fail on no match || no value
-                if (!$.validate.checkValue(item.value, rule.pattern)) {
+                if (!$.validator.checkValue(item.value, rule.pattern)) {
                     isValid = false;
                     var label = $("<label for=\"" + item.id + "\" generated=\"true\" class=\"" + rule.errorClass + "\">" + rule.errorMessage + "</label>");
                     $(item).addClass(rule.inputErrorClass);
@@ -60,7 +60,7 @@
                 }
             }
 
-            return $.validate.rules[cssClass];
+            return $.validator.rules[cssClass];
         },
         clearValidation: function(id) {
             if (id == undefined) {
@@ -123,15 +123,12 @@
         if (id == undefined) {
             id = this.selector;
         }
-
-        $.validate.clearValidation(id);
-
+        $.validator.clearValidation(id);
         $(id + ' .required, ' + id + ' [class*=validate]').each(function() {
-            if (!$.validate.checkElement(this)) { //One false is invalid
+            if (!$.validator.checkElement(this)) { //One false is invalid
                 isValid = false;
             }
         });
-
         return isValid;
     };
 })(jQuery);

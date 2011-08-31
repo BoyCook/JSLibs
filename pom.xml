@@ -49,6 +49,8 @@
                     <jsTestSrcDir>${project.basedir}/src/test/javascript/spec</jsTestSrcDir>
                     <!-- specify order in which JS sources should be loaded here-->
                     <sourceIncludes>
+                        <include>lib/jquery-1.4.2.min.js</include>
+                        <include>jquery.validator.js</include>
                         <include>jsMap.js</include>
                         <include>jsSet.js</include>
                         <include>http.utils.js</include>

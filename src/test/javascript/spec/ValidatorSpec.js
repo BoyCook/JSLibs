@@ -41,11 +41,11 @@ describe('Validator', function() {
     });
 
     function checkValidation(value, ruleName, expected) {
-        var rule = $.validate.rules[ruleName];
+        var rule = $.validator.rules[ruleName];
         if (expected) {
-            expect($.validate.checkValue(value, rule.pattern)).toBeTruthy();
+            expect($.validator.checkValue(value, rule.pattern)).toBeTruthy();
         } else {
-            expect($.validate.checkValue(value, rule.pattern)).toBeFalsy();
+            expect($.validator.checkValue(value, rule.pattern)).toBeFalsy();
         }
     }
 });
