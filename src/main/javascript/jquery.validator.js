@@ -1,16 +1,16 @@
 /**
- * @groupId 	>= org.cccs.jsLibs
- * @artefactId 	>= jquery.validator
- * @version   	>= 1.0
- *	
- * @name 		>= jquery.validator
+ * @groupId     >= org.cccs.jsLibs
+ * @artefactId     >= jquery.validator
+ * @version       >= 1.0
+ *
+ * @name         >= jquery.validator
  * @description >= An HTML input validator
- * @vcs			>= git
- * @website		>= https://github.com/BoyCook/JSLibs
- * @since     	>= 2010-07-01
- * @copyright 	>= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
- * @author    	>= Craig Cook
- * @requires  	>= jQuery 1.4.2           http://jquery.com
+ * @vcs            >= git
+ * @website        >= https://github.com/BoyCook/JSLibs
+ * @since         >= 2010-07-01
+ * @copyright     >= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
+ * @author        >= Craig Cook
+ * @requires      >= jQuery 1.4.2           http://jquery.com
  */
 
 (function($) {
@@ -28,7 +28,7 @@
                     $(item).addClass(rule.inputErrorClass);
 
                     var divParents = $(item).parents('div');
-                    if (divParents.length>0) {
+                    if (divParents.length > 0) {
                         var tabId = $(item).parents('div')[0].id;
                         $('#assetDetailTabs a[href="#' + tabId + '"] span').addClass('error');
                     }
@@ -45,16 +45,16 @@
             var classes = [];
             var splitNewLine = elem.className.split('\n');
 
-            $(splitNewLine).each(function(){
+            $(splitNewLine).each(function() {
                 var line = this.split(' ');
-                $(line).each(function(){
+                $(line).each(function() {
                     if (this.trim() != '') {
                         classes.push(this);
                     }
                 });
             });
 
-            for (var i=0; i<classes.length; i++) {
+            for (var i = 0; i < classes.length; i++) {
                 if (classes[i].indexOf('validate-') > -1) {
                     cssClass = classes[i];
                 }
@@ -63,10 +63,6 @@
             return $.validator.rules[cssClass];
         },
         clearValidation: function(id) {
-            if (id == undefined) {
-                id = this.selector;
-            }
-
             $(id + ' label.error').remove();
             $(id + ' span.error').removeClass('error');
             $(id + ' input.error').removeClass('error');
@@ -118,15 +114,19 @@
         }
     };
 
-    $.fn.validate = function(id) {
+    $.fn.validate = function(params) {
         var isValid = true;
-        if (id == undefined) {
-            id = this.selector;
-        }
-        $.validator.clearValidation(id);
-        $(id + ' .required, ' + id + ' [class*=validate]').each(function() {
-            if (!$.validator.checkElement(this)) { //One false is invalid
-                isValid = false;
+        this.each(function() {
+            if (params) {
+                var func = $.validator[params[0]];
+                func('#' + this.id);
+            } else {
+                $.validator.clearValidation('#' + this.id);
+                $('#' + this.id + ' .required, #' + this.id + ' [class*=validate]').each(function() {
+                    if (!$.validator.checkElement(this)) { //One false is invalid
+                        isValid = false;
+                    }
+                });
             }
         });
         return isValid;

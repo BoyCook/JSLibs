@@ -1,81 +1,157 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<title>jQuery validator Example Page</title>
-		<link type="text/css" href="../javascript/lib/jquery-1.4.2/css/redmond/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
-		<link type="text/css" href="../../main/css/jquery.validator.css" rel="stylesheet" />
-        <script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-1.4.2.min.js"></script>
-		<script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-ui-1.8.2.custom.min.js"></script>
-		<script type="text/javascript" src="../../main/javascript/jquery.validator.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				$('#butSubmit').click(function(){
-					$('#validateDiv').validate();					
-				})
-			});
-		</script>
-	</head>
-	<body>
-	<h1>jQuery validator example</h1>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>jQuery validator Example Page</title>
+    <link type="text/css" href="../javascript/lib/jquery-1.4.2/css/redmond/jquery-ui-1.8.2.custom.css"
+          rel="stylesheet"/>
+    <link type="text/css" href="../../main/css/jquery.validator.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="../javascript/lib/jquery-1.4.2/jquery-ui-1.8.2.custom.min.js"></script>
+    <script type="text/javascript" src="../../main/javascript/jquery.validator.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#butSubmit1').click(function() {
+                $('#validateDiv1').validate();
+            });
+            $('#butSubmit2').click(function() {
+                $('#validateDiv2').validate();
+            });
+            $('#butSubmit3').click(function() {
+                $('#validateDiv1, #validateDiv2').validate();
+            });
+            $('#butClear1').click(function() {
+                $('#validateDiv1').validate(['clearValidation']);
+            });
+            $('#butClear2').click(function() {
+                $('#validateDiv2').validate(['clearValidation']);
+            });
+            $('#butClear3').click(function() {
+                $('#validateDiv1, #validateDiv2').validate(['clearValidation']);
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>jQuery validator example</h1>
 
-	<div id='validateDiv'>
-		<table>
-			<tr>
-				<td>
-					Name:
-				</td>
-				<td>
-					<input type='text' id='txtName' class='required' style='width:150px;' />
-				</td>				
-			</tr>
-			<tr>				
-				<td>
-					Phone number:
-				</td>				
-				<td>
-					<input type='text' id='txtPhone' class='required' style='width:150px;' />
-				</td>				
-			</tr>
-			<tr>				
-				<td>
-					Email:
-				</td>				
-				<td>
-					<input type='text' id='txtEmail' class='required validate-email' style='width:150px;' />
-				</td>				
-			</tr>
-			<tr>				
-				<td>
-					Website:
-				</td>				
-				<td>
-					<input type='text' id='txtWebsite' class='required validate-url' style='width:150px;' />
-				</td>				
-			</tr>			
-			<tr>				
-				<td>
-					Role:
-				</td>				
-				<td>
-					<select id='selRole' class='required validate-dd' style='width:150px;'>
-						<option value="-1">-- Select --</option>
-						<option value="1">Project Manager</option>						
-						<option value="2">Scrum Master</option>												
-						<option value="3">Developer</option>																		
-						<option value="4">Technical Lead</option>						
-					</select>						
-				</td>				
-			</tr>			
-			<tr>				
-				<td colspan="2">
-					<input type='button' id='butSubmit' value='Submit'/>
-				</td>				
-			</tr>			
-		</table>			
-	</div>
-	
-	</body>
+<div id='validateDiv1' style="float: left;">
+    <table>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                <input type='text' class='required' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone number:
+            </td>
+            <td>
+                <input type='text' class='required' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email:
+            </td>
+            <td>
+                <input type='text' class='required validate-email' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Website:
+            </td>
+            <td>
+                <input type='text' class='required validate-url' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Role:
+            </td>
+            <td>
+                <select class='required validate-dd' style='width:150px;'>
+                    <option value="-1">-- Select --</option>
+                    <option value="1">Project Manager</option>
+                    <option value="2">Scrum Master</option>
+                    <option value="3">Developer</option>
+                    <option value="4">Technical Lead</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type='button' id='butSubmit1' value='Submit'/>
+                <input type='button' id='butClear1' value='Clear'/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id='validateDiv2'>
+    <table>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                <input type='text' class='required' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone number:
+            </td>
+            <td>
+                <input type='text' class='required' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email:
+            </td>
+            <td>
+                <input type='text' class='required validate-email' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Website:
+            </td>
+            <td>
+                <input type='text' class='required validate-url' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Role:
+            </td>
+            <td>
+                <select class='required validate-dd' style='width:150px;'>
+                    <option value="-1">-- Select --</option>
+                    <option value="1">Project Manager</option>
+                    <option value="2">Scrum Master</option>
+                    <option value="3">Developer</option>
+                    <option value="4">Technical Lead</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type='button' id='butSubmit2' value='Submit'/>
+                <input type='button' id='butClear2' value='Clear'/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<input type='button' id='butSubmit3' value='Submit All'/>
+<input type='button' id='butClear3' value='Clear All'/>
+</body>
 </html>
 
 
