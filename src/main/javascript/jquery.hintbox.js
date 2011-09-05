@@ -14,35 +14,38 @@
  */
 
 (function($) {
+    var methods = {
+        hint: function(id, text) {
+            $(id).focus(function(){
+                methods.toggle(id, false, text);
+            });
+            $(id).blur(function(){
+                if ($(id).val().length == 0) {
+                    methods.toggle(id, true, text);
+                }
+            });
+            methods.toggle(id, true, text);
+        },
+        toggle: function(id, on, text) {
+            if (on) {
+                $(id).addClass('hint');
+                $(id).val(text);
+            } else {
+                if ($(id).hasClass('hint')) {
+                    $(id).val('');
+                }
+                $(id).removeClass('hint');
+            }
+        }
+    };
+
     $.fn.hintBox = function(text) {
         if (text == undefined) {
             text = 'Type...';
         }	
-	
-        var context = this;
-        return this.each(function() {
+	    return this.each(function() {
             var id = '#' + this.id;
-            $(id).focus(function(){
-                context.toggleHintBox(id, false, text);
-            });
-            $(id).blur(function(){
-                if ($(id).val().length == 0) {
-                    context.toggleHintBox(id, true, text);
-                }
-            });
-            context.toggleHintBox(id, true, text);
+            methods.hint(id, text);
         });
-    };
-
-    $.fn.toggleHintBox = function(id, on, text) {
-        if (on) {
-            $(id).addClass('hint');
-            $(id).val(text);
-        } else {
-            if ($(id).hasClass('hint')) {
-                $(id).val('');
-            }
-            $(id).removeClass('hint');
-        }
     };
 })(jQuery);

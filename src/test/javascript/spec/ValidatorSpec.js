@@ -40,12 +40,51 @@ describe('Validator', function() {
         checkValidation('', 'validate-url', false);
     });
 
+    it('should get rule correctly', function() {
+        var rule = $().validate('getRule', 'validate-dd');
+        expect(rule).toBeDefined();
+        expect(rule.errorMessage).toEqual('You must select a value');
+    });
+
+    it('should get all rules correctly', function() {
+        var rules = $().validate('getRules');
+        expect(rules).toBeDefined();
+        expect(rules.length).toEqual(6);
+    });
+
+    it('should add rules correctly', function() {
+        var originalRules = $().validate('getRules');
+        expect(originalRules.length).toEqual(6);
+
+        var newRules = [
+            {
+                checkClass: 'bob',
+                errorClass: 'error',
+                inputErrorClass: 'error',
+                errorMessage: 'You must enter bob',
+                pattern: '^bob$'
+            },
+            {
+                checkClass: 'dave',
+                errorClass: 'error',
+                inputErrorClass: 'error',
+                errorMessage: 'You must enter dave',
+                pattern: '^dave$'
+            }
+        ];
+
+        var addedRules = $().validate('addRules', newRules);
+        var rules = $().validate('getRules');
+        expect(addedRules.length).toEqual(8);
+        expect(rules.length).toEqual(8);
+    });
+
     function checkValidation(value, ruleName, expected) {
-        var rule = $.validator.rules[ruleName];
+        var rule = $().validate('getRule', ruleName);
         if (expected) {
-            expect($.validator.checkValue(value, rule.pattern)).toBeTruthy();
+            expect($().validate('checkValue', value, rule.pattern)).toBeTruthy();
         } else {
-            expect($.validator.checkValue(value, rule.pattern)).toBeFalsy();
+            expect($().validate('checkValue', value, rule.pattern)).toBeFalsy();
         }
     }
 });

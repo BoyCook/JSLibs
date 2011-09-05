@@ -1,10 +1,30 @@
 <cars>
 	<car>
+		<name>Vanquish</name>
+		<manufacturer>Aston Martin</manufacturer>
+	</car>
+	<car>
 		<name>Mustang</name>
 		<manufacturer>Ford</manufacturer>
 	</car>
 	<car>
+		<name>Enzo</name>
+		<manufacturer>Ferrari</manufacturer>
+	</car>
+	<car>
+		<name>F1</name>
+		<manufacturer>Ferrari</manufacturer>
+	</car>
+	<car>
+		<name>Diablo</name>
+		<manufacturer>Lamborghini</manufacturer>
+	</car>
+	<car>
+		<name>Murcielago</name>
+		<manufacturer>Lamborghini</manufacturer>
+	</car>
+	<car>
 		<name>911</name>
 		<manufacturer>Porsche</manufacturer>
-	</car>	
+	</car>
 </cars>	

@@ -14,20 +14,27 @@
     <script type="text/javascript" src="../../main/javascript/jquery.xslTransform.js"></script>
     <script type="text/javascript">
         $(function() {
+            $('#butClear').click(function(){
+                $('#contents1').xslt('clear');
+            });
+            $('#butFilter').click(function(){
+                $('#contents1').xslt('filter', {filterKey: 'filter', filterValue: $('#txtManFilter').val()});
+            });
+
             //Basic usage
-            $('#contents1').xsltBind({
+            $('#contents1').xslt({
                 xslUrl: 'xsl/cars.xsl',
                 xmlUrl: 'xml/cars.xml'
             });
             //Filtering example
-            $('#contents2').xsltBind({
+            $('#contents2').xslt({
                 xslUrl: 'xsl/people.xsl',
                 xmlUrl: 'xml/people.xml',
                 filterable: true,
                 filterKey: ['filter1', 'filter2', 'filter3']
             });
             //Filtering with callback example
-            $('#contents3').xsltBind({
+            $('#contents3').xslt({
                 xslUrl: 'xsl/people.xsl',
                 xmlUrl: 'xml/people.xml',
                 filterable: true,
@@ -38,14 +45,14 @@
                 },
                 filterCallBack: function(selected) {
                     if (selected) {
-                        alert(selected.length);
+                        $('#filtered').text('Results left: ' + selected.length);
                     }
                 }
             });
             //Params example
             var params = new Map();
             params.put('filter1', 'cook');
-            $('#contents4').xsltBind({
+            $('#contents4').xslt({
                 xslUrl: 'xsl/people.xsl',
                 xmlUrl: 'xml/people.xml',
                 params: params
@@ -59,7 +66,14 @@
     </style>
 </head>
 <body>
-<h3>Basic Usage:</h3>
+<table>
+    <tr>
+        <td><h3>Basic Usage:</h3></td>
+        <td><input type="button" id="butClear" value="Clear" /></td>
+        <td><input type="text" id="txtManFilter" style="width: 100px;" /></td>
+        <td><input type="button" id="butFilter" value="Manual Filter" /></td>
+    </tr>
+</table>
 <div id='contents1'></div>
 <br/>
 <hr/>
@@ -72,6 +86,7 @@
 <br/>
 
 <h3>Filtering with callback:</h3>
+<h3 id="filtered">Callback</h3>
 <div id='contents3'></div>
 
 <br/>

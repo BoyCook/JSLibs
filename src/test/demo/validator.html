@@ -21,15 +21,28 @@
                 $('#validateDiv1, #validateDiv2').validate();
             });
             $('#butClear1').click(function() {
-                $('#validateDiv1').validate(['clearValidation']);
+                $('#validateDiv1').validate('clearValidation');
             });
             $('#butClear2').click(function() {
-                $('#validateDiv2').validate(['clearValidation']);
+                $('#validateDiv2').validate('clearValidation');
             });
             $('#butClear3').click(function() {
-                $('#validateDiv1, #validateDiv2').validate(['clearValidation']);
+                $('#validateDiv1, #validateDiv2').validate('clearValidation');
+            });
+            $('#butAddRules').click(function() {
+                confirm('Are you sure you want to add rules: ' + JSON.stringify(rules), function() {
+                    $().validate('addRules', rules);
+                });
             });
         });
+
+        var rules = [ {
+            checkClass: 'bob',
+            errorClass: 'error',
+            inputErrorClass: 'error',
+            errorMessage: 'You must enter bob',
+            pattern: '^bob$'
+        }]
     </script>
 </head>
 <body>
@@ -151,6 +164,7 @@
 
 <input type='button' id='butSubmit3' value='Submit All'/>
 <input type='button' id='butClear3' value='Clear All'/>
+<input type='button' id='butAddRules' value='Add Rules'/>
 </body>
 </html>
 

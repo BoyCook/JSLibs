@@ -1,9 +1,6 @@
 /**
- * @groupId 	>= org.cccs.jsLibs
- * @artefactId 	>= xslt
- * @version   	>= 1.0
- *	
  * @name 		>= XSLT
+ * @version   	>= 1.0
  * @description >= XSLT implementation for JavaScript using Sarissa
  * @vcs			>= git
  * @website		>= https://github.com/BoyCook/JSLibs
@@ -12,11 +9,11 @@
  * @author    	>= Craig Cook
  * @requires  	>= jQuery 1.4.2           http://jquery.com
  * @requires  	>= sarissa.js 0.9.9.4     http://sarissa.sourceforge.net
- * @requires  	>= jsMap.js 1.0           https://github.com/BoyCook/JSLibs/tree/master/map
- * @requires  	>= jquery.hintbox.js 1.0  https://github.com/BoyCook/JSLibs/tree/master/jquery.hintbox
+ * @requires  	>= jsMap.js 1.0           https://github.com/BoyCook/JSLibs
+ * @requires  	>= jquery.hintbox.js 1.0  https://github.com/BoyCook/JSLibs
  */
 
-function XSLT() {
+function XSLT(params) {
 	var context = this;
     this.xmls = new Map();
     this.xsls = new Map();
@@ -42,6 +39,10 @@ function XSLT() {
 	        }
 	    });		
 	};
+
+    if (params) {
+        this.functions(params);
+    }
 }
 
 XSLT.prototype.transform = function (element, processor, xml, callBack, callBackSelector, parameters) {
