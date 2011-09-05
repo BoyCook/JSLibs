@@ -6,6 +6,7 @@
     <artifactId>jslibs</artifactId>
     <name>JSLibs</name>
     <packaging>pom</packaging>
+    <description>Javascript Libraries</description>
     <version>1.0.0-SNAPSHOT</version>
     <parent>
         <groupId>org.cccs.build</groupId>
