@@ -54,6 +54,7 @@
                         <include>jquery.validator.js</include>
                         <include>jsMap.js</include>
                         <include>jsSet.js</include>
+	                    <include>jsString.js</include>
                         <include>http.utils.js</include>
                         <include>xml.utils.js</include>
                     </sourceIncludes>
