@@ -1,16 +1,12 @@
 /**
- * @groupId     >= org.cccs.jsLibs
- * @artefactId     >= jquery.validator
- * @version       >= 1.0
- *
- * @name         >= jquery.validator
- * @description >= An HTML input validator
- * @vcs            >= git
- * @website        >= https://github.com/BoyCook/JSLibs
- * @since         >= 2010-07-01
- * @copyright     >= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
- * @author        >= Craig Cook
- * @requires      >= jQuery 1.4.2           http://jquery.com
+ * @name            >= jquery.validator
+ * @description     >= An HTML input validator
+ * @vcs             >= git
+ * @website         >= https://github.com/BoyCook/JSLibs
+ * @since           >= 2010-07-01
+ * @copyright       >= Copyright (c) 2010 CCCS Ltd. http://craigcook.co.uk
+ * @author          >= Craig Cook
+ * @requires        >= jQuery 1.4.2           http://jquery.com
  */
 
 (function($) {
@@ -30,31 +26,32 @@
         checkElement: function(element) {
             var rule = methods.getRuleForElement(element);
             var isValid = true;
-
             //If there's no value and it's not required then there's no need to check
             if ($(element).hasClass('required') || (element.value != undefined && element.value.length > 0)) {
-                //Will fail on no match || no value
-                if (!methods.checkValue(element.value, rule.pattern)) {
+                if (!methods.check(element.value, rule)) {
                     isValid = false;
-                    var label = $("<label for=\"" + element.id + "\" generated=\"true\" class=\"" + rule.errorClass + "\">" + rule.errorMessage + "</label>");
-                    $(element).addClass(rule.inputErrorClass);
-
-                    var divParents = $(element).parents('div');
-                    if (divParents.length > 0) {
-                        var tabId = $(element).parents('div')[0].id;
-                        $('#assetDetailTabs a[href="#' + tabId + '"] span').addClass('error');
-                    }
-                    label.insertAfter(element);
+                    methods.invalidate(element, rule);
                 }
             }
             return isValid;
         },
+        check: function(value, rule) {
+            //TODO deal with async validation
+            if (rule.pattern) {
+                return methods.checkValue(value, rule.pattern);
+            } else if (rule.func) {
+                return rule.func(value);
+            } else {
+                return true;
+            }
+        },
         checkValue: function(value, pattern) {
+            //Will fail on no match || no value
             return !(value.match(pattern) == undefined || value.length == 0);
         },
         getRule: function(name) {
             var rule = undefined;
-            $(rules).each(function(){
+            $(rules).each(function() {
                 if (this.checkClass == name) {
                     rule = this;
                 }
@@ -86,6 +83,16 @@
 
             return methods.getRule(cssClass);
         },
+        invalidate: function(element, rule) {
+            var label = $("<label for=\"" + element.id + "\" generated=\"true\" class=\"" + rule.errorClass + "\">" + rule.errorMessage + "</label>");
+            $(element).addClass(rule.inputErrorClass);
+            var divParents = $(element).parents('div');
+            if (divParents.length > 0) {
+                var tabId = $(element).parents('div')[0].id;
+                $('#assetDetailTabs a[href="#' + tabId + '"] span').addClass('error');
+            }
+            label.insertAfter(element);
+        },
         clearValidation: function(id) {
             $(id + ' label.error').remove();
             $(id + ' span.error').removeClass('error');
@@ -105,6 +112,13 @@
             errorMessage: 'This field is required',
             pattern: '.'
         },
+		{
+            checkClass: 'validate-name',
+            errorClass: 'error',
+            inputErrorClass: 'error',
+            errorMessage: 'Name must not contain special characters',
+            pattern: "^[a-zA-Z0-9äöüÄÖÜ\-]*$"
+		},
         {
             checkClass: 'validate-dd',
             errorClass: 'error',
