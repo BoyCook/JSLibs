@@ -5,6 +5,16 @@ describe('Validator', function() {
         checkValidation('', 'required', false);
     });
 
+    it('should validate name correctly', function() {
+        checkValidation('SomeName', 'validate-name', true);
+        checkValidation('somename', 'validate-name', true);
+        checkValidation('some-name', 'validate-name', true);
+        checkValidation('some&name', 'validate-name', false);
+        checkValidation('some%name', 'validate-name', false);
+        checkValidation('some*name', 'validate-name', false);
+        checkValidation('some name', 'validate-name', false);
+    });
+
     it('should validate-dd correctly', function() {
         checkValidation('some value', 'validate-dd', true);
         checkValidation('', 'validate-dd', false);
@@ -49,12 +59,12 @@ describe('Validator', function() {
     it('should get all rules correctly', function() {
         var rules = $().validate('getRules');
         expect(rules).toBeDefined();
-        expect(rules.length).toEqual(6);
+        expect(rules.length).toEqual(7);
     });
 
     it('should add rules correctly', function() {
         var originalRules = $().validate('getRules');
-        expect(originalRules.length).toEqual(6);
+        expect(originalRules.length).toEqual(7);
 
         var newRules = [
             {
@@ -75,16 +85,43 @@ describe('Validator', function() {
 
         var addedRules = $().validate('addRules', newRules);
         var rules = $().validate('getRules');
-        expect(addedRules.length).toEqual(8);
-        expect(rules.length).toEqual(8);
+        expect(addedRules.length).toEqual(9);
+        expect(rules.length).toEqual(9);
+
+        checkValidation('craigcook.co.uk', 'bob', false);
+        checkValidation('bob', 'bob', true);
+
+        checkValidation('craigcook.co.uk', 'dave', false);
+        checkValidation('dave', 'dave', true);
+    });
+
+    it('should validate via functions correctly', function() {
+        var newRules = [
+            {
+                checkClass: 'foobar',
+                errorClass: 'error',
+                inputErrorClass: 'error',
+                errorMessage: 'You must enter foobar',
+                func: function(val) {
+                    return val == 'foobar';
+                }
+            }
+        ];
+        var addedRules = $().validate('addRules', newRules);
+        var rules = $().validate('getRules');
+        expect(addedRules.length).toEqual(10);
+        expect(rules.length).toEqual(10);
+
+        checkValidation('craigcook.co.uk', 'foobar', false);
+        checkValidation('foobar', 'foobar', true);
     });
 
     function checkValidation(value, ruleName, expected) {
         var rule = $().validate('getRule', ruleName);
         if (expected) {
-            expect($().validate('checkValue', value, rule.pattern)).toBeTruthy();
+            expect($().validate('check', value, rule)).toBeTruthy();
         } else {
-            expect($().validate('checkValue', value, rule.pattern)).toBeFalsy();
+            expect($().validate('check', value, rule)).toBeFalsy();
         }
     }
 });
