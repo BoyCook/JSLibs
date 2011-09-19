@@ -18,7 +18,8 @@ function HTTPService() {
 	this.mappings.put('401', 'You are not authorized - check your team memberships');
 	this.mappings.put('404', 'Resource not found - try another search');
 	this.mappings.put('409', 'Resource conflict - try another name');
-	this.mappings.put('422', 'Validation failed'); 
+	this.mappings.put('422', 'Validation failed');
+    this.mappings.put('500', 'The server encountered an error - If this problem persists please contact support');
 }
 
 HTTPService.prototype.setup = function(config) {
