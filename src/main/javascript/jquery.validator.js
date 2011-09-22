@@ -11,6 +11,56 @@
 
 (function($) {
     var methods = {
+        validateAsync: function(elements, validCallBack) {
+            $(elements).each(function() {
+                methods.clearValidation('#' + this.id);
+
+                var cnt = 0;
+                var toValidate = $('#' + this.id + ' .required, #' + this.id + ' [class*=validate]');
+                var validateEach = function(isValid, index) {
+                    var element = toValidate[index];
+                    methods.checkElementAsync(isValid, element, function(isValid, elemValid, element) {
+                        if (!elemValid) {
+                            var rule = methods.getRuleForElement(element);
+                            methods.invalidate(element, rule);
+                        }
+
+                        //Do next
+                        if (cnt < (toValidate.length - 1)) {
+                            cnt++;
+                            validateEach(isValid, cnt);
+                        } else {
+                            //At the end do the passed in callback
+                            if (isValid && validCallBack) {
+                                validCallBack();
+                            }
+                        }
+                    });
+                };
+                validateEach(true, 0);
+            });
+        },
+        checkElementAsync: function(isValid, element, callBack) {
+            var rule = methods.getRuleForElement(element);
+            //If there's no value and it's not required then there's no need to check
+            if ($(element).hasClass('required') || (element.value != undefined && element.value.length > 0)) {
+                methods.checkAsync(isValid, element, rule, callBack);
+            }
+        },
+        checkAsync: function(isValid, element, rule, callBack) {
+            if (rule.pattern) {
+                var elementValid = methods.checkValue(element.value, rule.pattern);
+                if (!elementValid) {
+                    isValid = false;
+                }
+                if (callBack) {
+                    callBack(isValid, elementValid, element);
+                }
+            } else if (rule.func) {
+                //Function must call callBack(isValid, elementValid, element);
+                rule.func(isValid, element, callBack);
+            }
+        },
         validate: function(elements) {
             var isValid = true;
             elements.each(function() {
@@ -36,7 +86,6 @@
             return isValid;
         },
         check: function(value, rule) {
-            //TODO deal with async validation
             if (rule.pattern) {
                 return methods.checkValue(value, rule.pattern);
             } else if (rule.func) {
@@ -47,7 +96,7 @@
         },
         checkValue: function(value, pattern) {
             //Will fail on no match || no value
-            return !(value.match(pattern) == undefined || value.length == 0);
+            return !(value == undefined || value.length == 0 || value.match(pattern) == undefined);
         },
         getRule: function(name) {
             var rule = undefined;
@@ -112,13 +161,13 @@
             errorMessage: 'This field is required',
             pattern: '.'
         },
-		{
+        {
             checkClass: 'validate-name',
             errorClass: 'error',
             inputErrorClass: 'error',
             errorMessage: 'Name must not contain special characters',
             pattern: "^[a-zA-Z0-9äöüÄÖÜ\-]*$"
-		},
+        },
         {
             checkClass: 'validate-dd',
             errorClass: 'error',
@@ -162,7 +211,7 @@
             if (this.length > 0) {
                 this.each(function() {
                     var args1 = ['#' + this.id];
-                    var funcArgs = Array.prototype.concat.call(args, args1);
+                    var funcArgs = Array.prototype.concat.call(args1, args);
                     return methods[method].apply(this, funcArgs);
                 });
             } else {

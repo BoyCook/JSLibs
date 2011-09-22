@@ -11,6 +11,7 @@
             <table width="98%">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Forename</th>
                         <th>Surname</th>
                         <th>Email</th>
@@ -36,6 +37,12 @@
                     ]">
                         <xsl:sort select="surName" order="ascending" />
                         <tr>
+                            <td>
+                                <input type="radio">
+                                    <xsl:attribute name="name"><xsl:value-of select="foreName"/>-<xsl:value-of select="surName"/></xsl:attribute>
+                                    <xsl:attribute name="value"><xsl:value-of select="foreName"/>-<xsl:value-of select="surName"/></xsl:attribute>
+                                </input>
+                            </td>
                             <td>
                                 <xsl:value-of select="foreName"/>
                             </td>

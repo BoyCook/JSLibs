@@ -17,6 +17,7 @@ describe('Validator', function() {
 
     it('should validate-dd correctly', function() {
         checkValidation('some value', 'validate-dd', true);
+        checkValidation(undefined, 'validate-dd', false);
         checkValidation('', 'validate-dd', false);
         checkValidation('-1', 'validate-dd', false);
     });

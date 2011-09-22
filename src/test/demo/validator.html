@@ -12,13 +12,15 @@
     <script type="text/javascript">
         $(function() {
             $('#butSubmit1').click(function() {
-                $('#validateDiv1').validate();
+                $('#validateDiv1').validate('validateAsync', function() {
+                    alert('Valid');
+                });
             });
             $('#butSubmit2').click(function() {
                 $('#validateDiv2').validate();
             });
             $('#butSubmit3').click(function() {
-                $('#validateDiv1, #validateDiv2').validate();
+                $('#validateDiv1, #validateDiv2').validate('validateAsync');
             });
             $('#butClear1').click(function() {
                 $('#validateDiv1').validate('clearValidation');

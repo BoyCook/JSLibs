@@ -83,7 +83,17 @@ XSLT.prototype.filter = function(element, filterKey, filterValue, callBack) {
     if (modelView != undefined) {
         modelView.filterParams.put(filterKey, filterValue);
         var params = modelView.filterParams.all().concat(modelView.params.all());
-        this.transform(element, modelView.xsl, modelView.xml, callBack, modelView.filterCallBackSelector, params);
+        var filterCallBack = function() {
+            if (callBack) {
+                callBack();
+            }
+
+            var radioButtons = $(element + ' input:radio');
+            if (radioButtons.length == 1) {
+                radioButtons.attr('checked', true);
+            }
+        };
+        this.transform(element, modelView.xsl, modelView.xml, filterCallBack, modelView.filterCallBackSelector, params);
     }
 };
 XSLT.prototype.filterable = function(containerId, filterKey, onEnter, callBack) {
