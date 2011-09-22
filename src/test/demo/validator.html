@@ -20,7 +20,10 @@
                 $('#validateDiv2').validate();
             });
             $('#butSubmit3').click(function() {
-                $('#validateDiv1, #validateDiv2').validate('validateAsync');
+                $('#validateDiv3').validate('validateAsync');
+            });
+            $('#butSubmitAll').click(function() {
+                $('#validateDiv1, #validateDiv2, #validateDiv3').validate('validateAsync');
             });
             $('#butClear1').click(function() {
                 $('#validateDiv1').validate('clearValidation');
@@ -29,22 +32,34 @@
                 $('#validateDiv2').validate('clearValidation');
             });
             $('#butClear3').click(function() {
+                $('#validateDiv3').validate('clearValidation');
+            });
+            $('#butClearAll').click(function() {
                 $('#validateDiv1, #validateDiv2').validate('clearValidation');
             });
-            $('#butAddRules').click(function() {
-                confirm('Are you sure you want to add rules: ' + JSON.stringify(rules), function() {
-                    $().validate('addRules', rules);
-                });
-            });
+            $().validate('addRules', rules);
         });
 
-        var rules = [ {
-            checkClass: 'bob',
+        var rules = [
+        {
+            checkClass: 'validate-bob',
             errorClass: 'error',
             inputErrorClass: 'error',
             errorMessage: 'You must enter bob',
-            pattern: '^bob$'
-        }]
+            func: function(isValid, element, callBack) {
+                callBack(isValid, (element.value == 'bob'), element);
+            }
+        },
+        {
+            checkClass: 'validate-john',
+            errorClass: 'error',
+            inputErrorClass: 'error',
+            errorMessage: 'You must enter john',
+            func: function(isValid, element, callBack) {
+                callBack(isValid, (element.value == 'john'), element);
+            }
+        }
+        ]
     </script>
 </head>
 <body>
@@ -107,7 +122,7 @@
     </table>
 </div>
 
-<div id='validateDiv2'>
+<div id='validateDiv2' style="float: left;">
     <table>
         <tr>
             <td>
@@ -164,9 +179,65 @@
     </table>
 </div>
 
-<input type='button' id='butSubmit3' value='Submit All'/>
-<input type='button' id='butClear3' value='Clear All'/>
-<input type='button' id='butAddRules' value='Add Rules'/>
+<div id='validateDiv3' style="float: left;">
+    <table>
+        <tr>
+            <td>
+                Bob:
+            </td>
+            <td>
+                <input type='text' class='required validate-bob' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                John:
+            </td>
+            <td>
+                <input type='text' class='validate-john' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email:
+            </td>
+            <td>
+                <input type='text' class='required validate-email' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Website:
+            </td>
+            <td>
+                <input type='text' class='required validate-url' style='width:150px;'/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Role:
+            </td>
+            <td>
+                <select class='required validate-dd' style='width:150px;'>
+                    <option value="-1">-- Select --</option>
+                    <option value="1">Project Manager</option>
+                    <option value="2">Scrum Master</option>
+                    <option value="3">Developer</option>
+                    <option value="4">Technical Lead</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type='button' id='butSubmit3' value='Submit'/>
+                <input type='button' id='butClear3' value='Clear'/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<input type='button' id='butSubmitAll' value='Submit All'/>
+<input type='button' id='butClearAll' value='Clear All'/>
 </body>
 </html>
 

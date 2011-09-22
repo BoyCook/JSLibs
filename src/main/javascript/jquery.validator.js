@@ -45,6 +45,8 @@
             //If there's no value and it's not required then there's no need to check
             if ($(element).hasClass('required') || (element.value != undefined && element.value.length > 0)) {
                 methods.checkAsync(isValid, element, rule, callBack);
+            } else {
+                callBack(isValid, true, element);
             }
         },
         checkAsync: function(isValid, element, rule, callBack) {
