@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>Timer Example Page</title>
+    <script type="text/javascript" src="../../main/javascript/Timer.js"></script>
+    <script type="text/javascript">
+        var done = function() {
+            alert('Done');
+        };
+
+        var cntDown = new Timer({element: 'txtCntDown', cntUp: false, finished: done });
+        var cntUp = new Timer({element: 'txtCntUp', cntUp: true });
+    </script>
+</head>
+<body>
+<div>
+    <h3>Count Down</h3>
+    <input type='text' id='txtCntDown' style='width:150px;'/> seconds
+    <input type='button' value='Start' onclick="cntDown.start(document.getElementById('txtCntDown').value * 1000)"/>
+    <input type='button' value='Pause' onclick="cntDown.pause()"/>
+    <input type='button' value='Resume' onclick="cntDown.resume()"/>
+    <input type='button' value='Stop' onclick="cntDown.stop()"/>
+</div>
+<br>
+
+<div>
+    <h3>Count Up</h3>
+    <input type='text' id='txtCntUp' style='width:150px;'/> seconds
+    <input type='button' value='Start' onclick="cntUp.start(document.getElementById('txtCntUp').value * 1000)"/>
+    <input type='button' value='Pause' onclick="cntUp.pause()"/>
+    <input type='button' value='Resume' onclick="cntUp.resume()"/>
+    <input type='button' value='Stop' onclick="cntUp.stop()"/>
+</div>
+
+</body>
+</html>
