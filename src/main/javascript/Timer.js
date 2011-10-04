@@ -1,48 +1,39 @@
 /*
-    A Javascript timer object
+ A Javascript timer object
  */
 function Timer(params) {
     //Defaults to countdown
-    this.element = params.element;
-    this.pid = undefined;
-    this.cnt = undefined;
-    this.target = undefined;
-    this.cntUp = params.cntUp;
-    this.cntBy = 1000;
-    this.interval = 1000;
-    this.finished = params.finished;
+    if (params) {
+        this.pid = undefined;
+        this.element = params.element;
+        this.cnt = params.cnt;
+        this.target = params.target;
+        this.cntBy = 1000;
+        this.interval = 1000;
+        this.finished = params.finished;
 
-    if (params.cntBy) {
-        this.cntBy = params.cntBy;
-    }
-    if (params.interval) {
-        this.interval = params.interval;
-    }
+        if (params.cntBy) {
+            this.cntBy = params.cntBy;
+        }
+        if (params.interval) {
+            this.interval = params.interval;
+        }
 
-    if (params.setValue) {
-        this.setValue = params.setValue;
-    } else {
-        this.setValue = function() {
-            document.getElementById(this.element).value = (this.cnt / 1000);
-        };
+        if (params.setValue) {
+            this.setValue = params.setValue;
+        } else {
+            this.setValue = function() {
+                document.getElementById(this.element).value = (this.cnt / 1000);
+            };
+        }
     }
 }
 
-Timer.prototype.start = function(cnt) {
+Timer.prototype.start = function() {
     var context = this;
-    if (this.cntUp) {
-        this.target = cnt;
-        this.cnt = 0;
-        this.pid = setInterval(function() {
-            context.countUp();
-        }, this.interval);
-    } else {
-        this.target = 0;
-        this.cnt = cnt;
-        this.pid = setInterval(function() {
-            context.countDown();
-        }, this.interval);
-    }
+    this.pid = setInterval(function() {
+        context.count();
+    }, this.interval);
 };
 Timer.prototype.stop = function() {
     clearInterval(this.pid);
@@ -53,15 +44,15 @@ Timer.prototype.pause = function() {
 Timer.prototype.resume = function() {
     this.start(this.cnt);
 };
-Timer.prototype.countUp= function() {
+Timer.prototype.countUp = function() {
     this.cnt += this.cntBy;
-    this.count();
+    this.next();
 };
-Timer.prototype.countDown= function() {
+Timer.prototype.countDown = function() {
     this.cnt -= this.cntBy;
-    this.count();
+    this.next();
 };
-Timer.prototype.count = function() {
+Timer.prototype.next = function() {
     this.setValue();
     if (this.cnt == this.target) {
         if (this.finished) {
@@ -71,16 +62,20 @@ Timer.prototype.count = function() {
     }
 };
 
-function StopWatch(params) {
-    Timer.call(this, params);
-}
-StopWatch.prototype = new Timer();
-StopWatch.prototype.constructor = StopWatch;
-
 function CountDown(params) {
     Timer.call(this, params);
 }
 CountDown.prototype = new Timer();
 CountDown.prototype.constructor = CountDown;
+CountDown.prototype.count = function() {
+    this.countDown();
+};
 
-
+function CountUp(params) {
+    Timer.call(this, params);
+}
+CountUp.prototype = new Timer();
+CountUp.prototype.constructor = CountDown;
+CountUp.prototype.count = function() {
+    this.countUp();
+};
