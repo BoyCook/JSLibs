@@ -60,7 +60,7 @@
         } else if (typeof method === 'boolean' || !method) {
             //method may be undefined
             this.each(function() {
-                methods.makeCollapsible(this, (!method ? false : true));
+                methods.makeCollapsible(this, (method == undefined ? false : method));
             });
         } else {
             $.error('Method ' + method + ' does not exist on jQuery.validate');

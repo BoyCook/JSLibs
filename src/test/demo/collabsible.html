@@ -9,16 +9,17 @@
 		<script type="text/javascript" src="../../main/javascript/jquery.collapsible.js"></script>
 		<script type="text/javascript">
 			$(function(){
-                $('#collapsible-div, .make-collapsible').collapsible();
+                $('#collapsible-div').collapsible(true);
+                $('.make-collapsible').collapsible();
 			});
 		</script>
 	</head>
 	<body>
 	<h1>jQuery collapsible example</h1>
 
-	<div class='make-collapsible'>
+	<div id='collapsible-div'>
 		<h3>Collapsible no 1</h3>
-		<div>This one starts open</div>
+		<div>This one starts open because of api call</div>
 	</div>
 
 	<div class='make-collapsible'>
@@ -31,11 +32,10 @@
 		<div>This one starts open because of the class 'collapsible-open'</div>
 	</div>
 
-	<div id='collapsible-div'>
+	<div class='make-collapsible'>
 		<h3>Collapsible no 4</h3>
 		<div>This one starts closed</div>
 	</div>
-	
 	</body>
 </html>
 
