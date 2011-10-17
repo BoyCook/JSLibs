@@ -9,29 +9,32 @@
 		<script type="text/javascript" src="../../main/javascript/jquery.collapsible.js"></script>
 		<script type="text/javascript">
 			$(function(){
-				$('#collapsible1').collapsible(true);
-				$('#collapsible2').collapsible();
-				$('#collapsible3').collapsible();								
+                $('#collapsible-div, .make-collapsible').collapsible();
 			});
 		</script>
 	</head>
 	<body>
 	<h1>jQuery collapsible example</h1>
 
-	<div id='collapsible1'>
+	<div class='make-collapsible'>
 		<h3>Collapsible no 1</h3>
 		<div>This one starts open</div>
 	</div>
 
-	<div id='collapsible2'>
+	<div class='make-collapsible'>
 		<h3>Collapsible no 2</h3>
 		<div>This one starts closed</div>
 	</div>	
 
-	<div id='collapsible3' class='collapsible-open'>
+	<div class='make-collapsible collapsible-open'>
 		<h3>Collapsible no 3</h3>
 		<div>This one starts open because of the class 'collapsible-open'</div>
-	</div>	
+	</div>
+
+	<div id='collapsible-div'>
+		<h3>Collapsible no 4</h3>
+		<div>This one starts closed</div>
+	</div>
 	
 	</body>
 </html>
