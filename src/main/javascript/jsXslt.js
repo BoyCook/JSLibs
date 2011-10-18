@@ -106,9 +106,10 @@ XSLT.prototype.filterable = function(containerId, filterKey, onEnter, callBack) 
     var filterDiv = "<div id='" + filterBoxId + "'><label>Filter: </label><input type='text' id='" + filterId + "'/></div>";
     var msg = onEnter ? 'Hit enter to filter...' : 'Type to filter...';
 
+    var contents = $(containerId).children().remove();
     $(containerId).append($(filterDiv));
     $(containerId).append($(childDiv));
-    $(childId).append($(containerId + ' table').remove());
+    $(childId).append(contents);
     $(childId).data('modelView', modelView);
 
     var filterHandler = function() {

@@ -14,7 +14,6 @@
                     </tr>
                 </thead>
                 <tbody id="transformed">
-                    <!--<xsl:for-each select="car">-->
                     <xsl:for-each select="car[
                         (contains(translate(name, $lc, $uc), translate($filter, $lc, $uc)) or
                         contains(translate(manufacturer, $lc, $uc), translate($filter, $lc, $uc)))
