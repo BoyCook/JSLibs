@@ -79,9 +79,9 @@ HTTPService.prototype.del = function(url, callBack, errorCallBack, sync) {
     this.submit(request, sync);
 };
 HTTPService.prototype.submit = function(request, sync) {
-	this.doSubmit(request.url, request.method, request.type, request.data, request.callBack, request.error, sync);
+	this.doSubmit(request.url, request.method, request.type, request.contentType, request.data, request.callBack, request.error, sync);
 };
-HTTPService.prototype.doSubmit = function(url, method, type, data, callBack, error, sync) {
+HTTPService.prototype.doSubmit = function(url, method, type, contentType, data, callBack, error, sync) {
 	if(sync == null ||  sync == undefined) {
 		sync = false;
 	}
@@ -104,7 +104,8 @@ HTTPService.prototype.doSubmit = function(url, method, type, data, callBack, err
         type: method,
         data: data,
         dataType: type,
-	      async: !sync,
+        contentType: contentType,
+	    async: !sync,
         success: function(xml) {
 			if (context.afterLoad) {
 				context.afterLoad();
@@ -122,6 +123,7 @@ function HTTPRequest(url, method, type, data, callBack, error) {
     this.method = method;
     this.type = type;
     this.data = data;
+    this.contentType = undefined;
     this.callBack = callBack;
     this.error = error;
 }
