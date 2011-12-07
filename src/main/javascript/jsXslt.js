@@ -104,8 +104,7 @@ XSLT.prototype.filterable = function(containerId, filterKey, onEnter, callBack) 
     var filterBoxId = childId.substring(1) + 'FilterBox';
     var childDiv = "<div id='" + childId.substring(1) + "' class='filterable-content'></div>";
     var filterDiv = "<div id='" + filterBoxId + "'><label>Filter: </label><input type='text' id='" + filterId + "'/></div>";
-    var msg = onEnter ? 'Hit enter to filter...' : 'Type to filter...';
-
+    var msg = modelView.filterBoxMessage != undefined ? modelView.filterBoxMessage : (onEnter ? 'Hit enter to filter...' : 'Type to filter...');
     var contents = $(containerId).children().remove();
     $(containerId).append($(filterDiv));
     $(containerId).append($(childDiv));
@@ -172,7 +171,7 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform) {
                             modelView.callBack();
                         }
                         context.filterable(element, modelView.filterKey, true, modelView.filterCallBack);
-                        $(element + 'Child').html("<h3>Type some filter parameters and hit enter to start</h3>");
+                        $(element + 'Child').html("<h3>" + modelView.filterAreaMessage + "</h3>");
                      } else {
                         var newCallBack = function() {
                             if (modelView.callBack) {

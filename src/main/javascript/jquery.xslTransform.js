@@ -18,6 +18,7 @@
             var id = this.selector;
             var modelView = $(id).data('modelView');
             //Create new Model View binding
+            //TODO: use $.extend here instead
             if (modelView == undefined) {
                 modelView = {
                     xslUrl: params.xslUrl,
@@ -28,6 +29,8 @@
                     filterKey: undefined,
                     filterOnEnter: undefined,
                     filterParams: new Map(),
+                    filterBoxMessage: params.filterBoxMessage,
+                    filterAreaMessage: params.filterAreaMessage ? params.filterAreaMessage : 'Type some filter parameters and hit enter to start',
                     params: params.params ? params.params : new Map(),
                     callBack: params.callBack,
                     filterCallBack: undefined,
