@@ -144,8 +144,10 @@ HTTPSynchronizer.prototype.submit = function(index){
     var context = this;
     var request = this.requests[index];
     var orgCallBack = request.callBack;
-    request.callBack = function(){
-        orgCallBack();
+    request.callBack = function(xml){
+        if(orgCallBack) {
+        	orgCallBack(xml);
+        }
         context.cnt++;
 
         if (context.cnt == context.requests.length) {
