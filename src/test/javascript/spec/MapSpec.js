@@ -113,4 +113,9 @@ describe('Map', function(){
         var key = map.getKeyOfValue('This is made up');
         expect(key).toBeUndefined();
     });
+
+    it('should get all values', function(){
+        var values = map.getAllValues();
+        expect(values).toEqual(['Craig Cook', 'Tim Watson', 'Charles Care', 'Richard Sheath', 'Brian Francic']);
+    });
 });

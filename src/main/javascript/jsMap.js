@@ -51,6 +51,13 @@ Map.prototype.clear = function() {
 Map.prototype.all = function() {
     return this.array;
 };
+Map.prototype.getAllValues = function() {
+	var valuesArray = [];
+	for (var i=0; i<this.array.length; i++) {
+        valuesArray.push(this.array[i].value);
+	}
+	return valuesArray;
+};
 Map.prototype.getIndex = function(key) {
     var index = -1;
     for (var i=0; i<this.array.length; i++) {
