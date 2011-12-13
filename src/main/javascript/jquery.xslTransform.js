@@ -92,6 +92,9 @@
         functions: function(functions) {
             engine.functions(functions);
         },
+        loadXml: function(url) {
+            engine.loadXml(url);
+        },
         addXml: function(url, xml) {
             engine.addXml(url, xml);
         }
