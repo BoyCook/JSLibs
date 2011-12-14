@@ -239,6 +239,9 @@ XSLT.prototype.loadXml = function(xmlUrl, reload, callBack) {
 XSLT.prototype.addXml = function(url, xml) {
     this.xmls.put(url, xml);
 };
+XSLT.prototype.getXml = function(url) {
+    return this.xmls.get(url);
+};
 XSLT.prototype.functions = function(functions) {
     this.beforeLoad = functions.beforeLoad;
     this.afterLoad = functions.afterLoad;

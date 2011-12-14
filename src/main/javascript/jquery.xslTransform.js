@@ -97,6 +97,9 @@
         },
         addXml: function(url, xml) {
             engine.addXml(url, xml);
+        },
+        getXml: function(url) {
+            return engine.getXml(url);
         }
     };
     $.fn.xslt = function(params) {
