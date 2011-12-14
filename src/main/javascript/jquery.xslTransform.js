@@ -27,6 +27,8 @@
                     xml: undefined,
                     transformed: undefined,
                     filterKey: undefined,
+                    pageStartKey: params.pageStartKey ? params.pageStartKey : 'pageStart',
+                    pageEndKey: params.pageEndKey ? params.pageEndKey : 'pageFinish',
                     filterOnEnter: undefined,
                     filterParams: new Map(),
                     filterBoxMessage: params.filterBoxMessage,
@@ -35,7 +37,11 @@
                     callBack: params.callBack,
                     filterCallBack: undefined,
                     filterCallBackSelector: undefined,
-                    filterOnEnterFunction: undefined
+                    filterOnEnterFunction: undefined,
+                    pageCallBack: undefined,
+                    pageCallBackSelector: undefined,
+                    pageRange: params.pageRange ? params.pageRange : 10,
+                    pageMax: params.pageMax
                 };
                 var xsl = engine.xsls.get(params.xslUrl);
                 var xml = engine.xmls.get(params.xmlUrl);
@@ -61,6 +67,7 @@
             //TODO: consider making filterable implicit based upon filterKey
             var reloadXml = params.reloadXml != undefined ? params.reloadXml : true;
             var filterable = params.filterable != undefined ? params.filterable : false;
+            var paginate = params.paginate  != undefined ? params.paginate : false;
 
             if (filterable) {
                 modelView.filterKey = (params.filterKey == undefined ? 'filter' : params.filterKey);
@@ -70,7 +77,16 @@
                 modelView.filterOnEnterFunction = params.onEnterFunction;
             }
 
-            engine.loadModelView(id, reloadXml, !filterable);
+            if (paginate) {
+                modelView.pageStartKey = (params.pageStartKey == undefined ? 'pageStart' : params.pageStartKey);
+                modelView.pageEndKey = (params.pageEndKey == undefined ? 'pageFinish' : params.pageEndKey);
+                modelView.pageCallBack = params.pageCallBack;
+                modelView.pageCallBackSelector = params.callBackSelector;
+                modelView.pageRange = (params.pageRange == undefined ? 10 : params.pageRange);
+                modelView.pageMax = params.pageMax;
+            }
+
+            engine.loadModelView(id, reloadXml, !filterable, paginate);
             return modelView;
         },
         transform: function(reloadXml) {

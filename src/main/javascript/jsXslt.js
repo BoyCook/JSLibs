@@ -96,6 +96,24 @@ XSLT.prototype.filter = function(element, filterKey, filterValue, callBack) {
         this.transform(element, modelView.xsl, modelView.xml, filterCallBack, modelView.filterCallBackSelector, params);
     }
 };
+XSLT.prototype.paginate = function(element, pageStartKey, pageEndKey, startValue, endValue, callBack) {
+    var modelView = $(element).data('modelView');
+    if (modelView != undefined) {
+        modelView.params.put(pageStartKey, startValue.toString());
+        modelView.params.put(pageEndKey, endValue.toString());
+        var paginateCallBack = function() {
+            if (callBack) {
+                callBack();
+            }
+
+            var radioButtons = $(element + ' input:radio');
+            if (radioButtons.length == 1) {
+                radioButtons.attr('checked', true);
+            }
+        }
+        this.transform(element, modelView.xsl, modelView.xml, paginateCallBack, modelView.pageCallBackSelector, modelView.params.all());
+    }
+};
 XSLT.prototype.filterable = function(containerId, filterKey, onEnter, callBack) {
     var context = this;
     var childId = containerId + 'Child';
@@ -151,7 +169,92 @@ XSLT.prototype.filterable = function(containerId, filterKey, onEnter, callBack) 
         $('#' + filterBoxId + ' label').remove();
     }
 };
-XSLT.prototype.loadModelView = function(element, reloadXml, transform) {
+XSLT.prototype.pagination = function(containerId, pageStartKey, pageEndKey, pageRange, totalRecords, callBack) {
+    var context = this;
+    var childId = containerId + 'Child';
+    var modelView = $(containerId).data('modelView');
+    var paginationId = childId.substring(1) + 'Pagination';
+    var startButtonId = childId.substring(1) + 'StartButton';
+    var previousButtonId = childId.substring(1) + 'PreviousButton';
+    var nextButtonId = childId.substring(1) + 'NextButton';
+    var endButtonId = childId.substring(1) + 'EndButton';
+    var pageInfoId = childId.substring(1) + 'PageInfo';
+
+    var remainder = totalRecords % pageRange;
+    var maxPages = Math.round(totalRecords / pageRange);
+    if(remainder < 5) {
+        maxPages++;
+    }
+
+    var childDiv = "<div id='" + childId.substring(1) + "' class='filterable-content'></div>";
+    var paginationDiv = "<div id='" + paginationId + "'>" +
+        "<button id='" + startButtonId + "' disabled=''>Start</button>" +
+        "<button id='" + previousButtonId + "' disabled=''>Previous</button>";
+    if(totalRecords <= pageRange) {
+        maxPages = 1;
+        paginationDiv += "<button id='" + nextButtonId + "' disabled=''>Next</button>" +
+            "<button id='" + endButtonId + "' disabled=''>End</button>";
+    } else {
+        paginationDiv += "<button id='" + nextButtonId + "'>Next</button>" +
+            "<button id='" + endButtonId + "'>End</button>";
+    }
+    paginationDiv += "<i style='padding-left: 5px;' id='" + pageInfoId + "'>1 of " + (maxPages) + "</i></div>";
+
+
+    $(containerId).append($(paginationDiv));
+    $(containerId).append($(childDiv));
+    $(childId).append($(containerId + ' table:first').remove());
+    $(childId).data('modelView', modelView);
+
+    var pageHandler = function(multiplier) {
+        var modelView = $(childId).data('modelView');
+        modelView.filterParams.clear();
+        var startValue = multiplier * pageRange;
+        var endValue = (multiplier * pageRange) + pageRange;
+        context.paginate(childId, pageStartKey, pageEndKey, startValue, endValue, callBack);
+        $('#' + pageInfoId).text((multiplier + 1) + ' of ' + (maxPages));
+    };
+
+    var clickCounter = 0;
+    $('#' + startButtonId).click(function() {
+        clickCounter = 0;
+        pageHandler(clickCounter);
+        $('#' + startButtonId).attr('disabled','disabled');
+        $('#' + previousButtonId).attr('disabled','disabled');
+        $('#' + nextButtonId).removeAttr('disabled');
+        $('#' + endButtonId).removeAttr('disabled');
+    });
+    $('#' + previousButtonId).click(function() {
+        clickCounter--;
+        pageHandler(clickCounter);
+        if(clickCounter == 0) {
+            $('#' + previousButtonId).attr('disabled','disabled');
+            $('#' + startButtonId).attr('disabled','disabled');
+        }
+        $('#' + nextButtonId).removeAttr('disabled');
+        $('#' + endButtonId).removeAttr('disabled');
+    });
+    $('#' + nextButtonId).click(function() {
+        clickCounter++;
+        pageHandler(clickCounter);
+        if(((clickCounter + 1) * pageRange) >= totalRecords) {
+            $('#' + nextButtonId).attr('disabled','disabled');
+            $('#' + endButtonId).attr('disabled','disabled');
+        }
+        $('#' + previousButtonId).removeAttr('disabled');
+        $('#' + startButtonId).removeAttr('disabled');
+    });
+    $('#' + endButtonId).click(function() {
+        clickCounter = maxPages - 1;
+        pageHandler(clickCounter);
+        $('#' + endButtonId).attr('disabled','disabled');
+        $('#' + nextButtonId).attr('disabled','disabled');
+        $('#' + previousButtonId).removeAttr('disabled');
+        $('#' + startButtonId).removeAttr('disabled');
+    });
+
+};
+XSLT.prototype.loadModelView = function(element, reloadXml, transform, paginate) {
     var modelView = $(element).data('modelView');
     var context = this;
     if (modelView != undefined) {
@@ -160,26 +263,28 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform) {
             context.loadXml(modelView.xmlUrl, reloadXml, function() {
                 modelView.xml = context.xmls.get(modelView.xmlUrl);
 
-                if (transform) {
+                if (transform && !paginate) {
                     context.transform(element, modelView.xsl, modelView.xml, modelView.callBack, undefined, modelView.params.all());
-                } else { // It's filterable
-                    if (!modelView.filterOnEnter && modelView.filterOnEnterFunction != undefined) {
+                } else { // It's filterable/paginating
+                    if (!modelView.filterOnEnter && modelView.filterOnEnterFunction != undefined && !paginate) {
                         modelView.filterOnEnter = modelView.filterOnEnterFunction(modelView.xml);
                     }
-                    if (modelView.filterOnEnter) {
+                    if (modelView.filterOnEnter && !paginate) {
                         if (modelView.callBack) {
                             modelView.callBack();
                         }
                         context.filterable(element, modelView.filterKey, true, modelView.filterCallBack);
                         $(element + 'Child').html("<h3>" + modelView.filterAreaMessage + "</h3>");
-                     } else {
+                    } else {
                         var newCallBack = function() {
                             if (modelView.callBack) {
                                 modelView.callBack();
                             }
-
-                            context.filterable(element, modelView.filterKey, false, modelView.filterCallBack);
-
+                            if(paginate) {
+                                context.pagination(element, modelView.pageStartKey, modelView.pageEndKey, modelView.pageRange, modelView.pageMax, modelView.pageCallBack);
+                            } else {
+                                context.filterable(element, modelView.filterKey, false, modelView.filterCallBack);
+                            }
                             if (modelView.filterCallBack) {
                                 modelView.filterCallBack();
                             }
