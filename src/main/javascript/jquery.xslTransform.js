@@ -54,13 +54,16 @@
                 $(id).data('modelView', modelView);
             } else { //Update the existing Model View binding
                 //TODO: consider this further
-                if (modelView.xslUrl != params.xslUrl) {
+                if (modelView.xslUrl != params.xslUrl && params.xslUrl != undefined) {
                     modelView.xslUrl = params.xslUrl;
                     modelView.xsl = null;
                 }
-                if (modelView.xmlUrl != params.xmlUrl) {
+                if (modelView.xmlUrl != params.xmlUrl && params.xmlUrl != undefined) {
                     modelView.xmlUrl = params.xmlUrl;
                     modelView.xml = null;
+                }
+                if (params.params != undefined) {
+                    modelView.params = params.params;
                 }
             }
 
@@ -124,7 +127,7 @@
         } else if (typeof params === 'object' || ! params) {
             return methods.bind.apply(this, arguments);
         } else {
-            $.error('Method ' + params + ' does not exist on jQuery.validate');
+            $.error('Method ' + params + ' does not exist on jQuery.xslt');
         }
     };
 })(jQuery);
