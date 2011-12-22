@@ -264,7 +264,7 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform, paginate)
                 modelView.xml = context.xmls.get(modelView.xmlUrl);
 
                 if (transform && !paginate) {
-                    context.transform(element, modelView.xsl, modelView.xml, modelView.callBack, undefined, modelView.params.all());
+                    context.transform(element, modelView.xsl, modelView.xml, modelView.callBack, modelView.callBackSelector, modelView.params.all());
                 } else { // It's filterable/paginating
                     if (!modelView.filterOnEnter && modelView.filterOnEnterFunction != undefined && !paginate) {
                         modelView.filterOnEnter = modelView.filterOnEnterFunction(modelView.xml);
@@ -276,9 +276,9 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform, paginate)
                         context.filterable(element, modelView.filterKey, true, modelView.filterCallBack);
                         $(element + 'Child').html("<h3>" + modelView.filterAreaMessage + "</h3>");
                     } else {
-                        var newCallBack = function() {
+                        var newCallBack = function(data) {
                             if (modelView.callBack) {
-                                modelView.callBack();
+                                modelView.callBack(data);
                             }
                             if(paginate) {
                                 context.pagination(element, modelView.pageStartKey, modelView.pageEndKey, modelView.pageRange, modelView.pageMax, modelView.pageCallBack);
@@ -286,11 +286,11 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform, paginate)
                                 context.filterable(element, modelView.filterKey, false, modelView.filterCallBack);
                             }
                             if (modelView.filterCallBack) {
-                                modelView.filterCallBack();
+                                modelView.filterCallBack(data);
                             }
                         };
 
-                        context.transform(element, modelView.xsl, modelView.xml, newCallBack, undefined, modelView.params.all());
+                        context.transform(element, modelView.xsl, modelView.xml, newCallBack, modelView.callBackSelector, modelView.params.all());
                     }
                 }
             });

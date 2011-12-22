@@ -35,6 +35,7 @@
                     filterAreaMessage: params.filterAreaMessage ? params.filterAreaMessage : 'Type some filter parameters and hit enter to start',
                     params: params.params ? params.params : new Map(),
                     callBack: params.callBack,
+                    callBackSelector: params.callBackSelector,
                     filterCallBack: undefined,
                     filterCallBackSelector: undefined,
                     filterOnEnterFunction: undefined,
@@ -64,6 +65,12 @@
                 }
                 if (params.params != undefined) {
                     modelView.params = params.params;
+                }
+                if (params.callBack != undefined) {
+                    modelView.callBack = params.callBack;
+                }
+                if (params.callBackSelector != undefined) {
+                    modelView.callBackSelector = params.callBackSelector;
                 }
             }
 
