@@ -83,9 +83,9 @@ XSLT.prototype.filter = function(element, filterKey, filterValue, callBack) {
     if (modelView != undefined) {
         modelView.filterParams.put(filterKey, filterValue);
         var params = modelView.filterParams.all().concat(modelView.params.all());
-        var filterCallBack = function() {
+        var filterCallBack = function(data) {
             if (callBack) {
-                callBack();
+                callBack(data);
             }
 
             var radioButtons = $(element + ' input:radio');

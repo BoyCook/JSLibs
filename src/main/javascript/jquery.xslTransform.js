@@ -76,7 +76,7 @@
                 modelView.filterKey = (params.filterKey == undefined ? 'filter' : params.filterKey);
                 modelView.filterOnEnter = (params.onEnter == undefined ? false : params.onEnter);
                 modelView.filterCallBack = params.filterCallBack;
-                modelView.filterCallBackSelector = params.callBackSelector;
+                modelView.filterCallBackSelector = params.filterCallBackSelector;
                 modelView.filterOnEnterFunction = params.onEnterFunction;
             }
 
@@ -84,7 +84,7 @@
                 modelView.pageStartKey = (params.pageStartKey == undefined ? 'pageStart' : params.pageStartKey);
                 modelView.pageEndKey = (params.pageEndKey == undefined ? 'pageFinish' : params.pageEndKey);
                 modelView.pageCallBack = params.pageCallBack;
-                modelView.pageCallBackSelector = params.callBackSelector;
+                modelView.pageCallBackSelector = params.pageCallBackSelector;
                 modelView.pageRange = (params.pageRange == undefined ? 10 : params.pageRange);
                 modelView.pageMax = params.pageMax;
             }
