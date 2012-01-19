@@ -35,6 +35,7 @@
                     filterAreaMessage: params.filterAreaMessage ? params.filterAreaMessage : 'Type some filter parameters and hit enter to start',
                     params: params.params ? params.params : new Map(),
                     callBack: params.callBack,
+                    callBackSelector: params.callBackSelector,
                     filterCallBack: undefined,
                     filterCallBackSelector: undefined,
                     filterOnEnterFunction: undefined,
@@ -54,13 +55,22 @@
                 $(id).data('modelView', modelView);
             } else { //Update the existing Model View binding
                 //TODO: consider this further
-                if (modelView.xslUrl != params.xslUrl) {
+                if (modelView.xslUrl != params.xslUrl && params.xslUrl != undefined) {
                     modelView.xslUrl = params.xslUrl;
                     modelView.xsl = null;
                 }
-                if (modelView.xmlUrl != params.xmlUrl) {
+                if (modelView.xmlUrl != params.xmlUrl && params.xmlUrl != undefined) {
                     modelView.xmlUrl = params.xmlUrl;
                     modelView.xml = null;
+                }
+                if (params.params != undefined) {
+                    modelView.params = params.params;
+                }
+                if (params.callBack != undefined) {
+                    modelView.callBack = params.callBack;
+                }
+                if (params.callBackSelector != undefined) {
+                    modelView.callBackSelector = params.callBackSelector;
                 }
             }
 
@@ -73,7 +83,7 @@
                 modelView.filterKey = (params.filterKey == undefined ? 'filter' : params.filterKey);
                 modelView.filterOnEnter = (params.onEnter == undefined ? false : params.onEnter);
                 modelView.filterCallBack = params.filterCallBack;
-                modelView.filterCallBackSelector = params.callBackSelector;
+                modelView.filterCallBackSelector = params.filterCallBackSelector;
                 modelView.filterOnEnterFunction = params.onEnterFunction;
             }
 
@@ -81,7 +91,7 @@
                 modelView.pageStartKey = (params.pageStartKey == undefined ? 'pageStart' : params.pageStartKey);
                 modelView.pageEndKey = (params.pageEndKey == undefined ? 'pageFinish' : params.pageEndKey);
                 modelView.pageCallBack = params.pageCallBack;
-                modelView.pageCallBackSelector = params.callBackSelector;
+                modelView.pageCallBackSelector = params.pageCallBackSelector;
                 modelView.pageRange = (params.pageRange == undefined ? 10 : params.pageRange);
                 modelView.pageMax = params.pageMax;
             }
@@ -124,7 +134,7 @@
         } else if (typeof params === 'object' || ! params) {
             return methods.bind.apply(this, arguments);
         } else {
-            $.error('Method ' + params + ' does not exist on jQuery.validate');
+            $.error('Method ' + params + ' does not exist on jQuery.xslt');
         }
     };
 })(jQuery);
