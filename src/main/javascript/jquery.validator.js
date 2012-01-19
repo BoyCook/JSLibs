@@ -140,7 +140,7 @@
             var divParents = $(element).parents('div');
             if (divParents.length > 0) {
                 var tabId = $(element).parents('div')[0].id;
-                $('#assetDetailTabs a[href="#' + tabId + '"] span').addClass('error');
+                $(divParents[1]).find('a[href="#' + tabId + '"] span').addClass('error');
             }
             label.insertAfter(element);
         },
