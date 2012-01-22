@@ -16,6 +16,7 @@
     var methods = {
         bind: function(params) {
             var id = this.selector;
+            var inputContainerId = params.inputContainerId;
             var modelView = $(id).data('modelView');
             //Create new Model View binding
             //TODO: use $.extend here instead
@@ -26,6 +27,7 @@
                     xmlUrl: params.xmlUrl,
                     xml: undefined,
                     transformed: undefined,
+                    inputContainerId: params.inputContainerId,
                     filterKey: undefined,
                     pageStartKey: params.pageStartKey ? params.pageStartKey : 'pageStart',
                     pageEndKey: params.pageEndKey ? params.pageEndKey : 'pageFinish',
@@ -77,7 +79,7 @@
             //TODO: consider making filterable implicit based upon filterKey
             var reloadXml = params.reloadXml != undefined ? params.reloadXml : true;
             var filterable = params.filterable != undefined ? params.filterable : false;
-            var paginate = params.paginate  != undefined ? params.paginate : false;
+            var paginate = params.paginate != undefined ? params.paginate : false;
 
             if (filterable) {
                 modelView.filterKey = (params.filterKey == undefined ? 'filter' : params.filterKey);
@@ -96,14 +98,14 @@
                 modelView.pageMax = params.pageMax;
             }
 
-            engine.loadModelView(id, reloadXml, !filterable, paginate);
+            engine.loadModelView(id, inputContainerId, reloadXml, !filterable, paginate);
             return modelView;
         },
         transform: function(reloadXml) {
             if (reloadXml == undefined) {
                 reloadXml = true;
             }
-            engine.loadModelView(this.selector, reloadXml, true);
+            engine.loadModelView(this.selector, this.inputContainerId, reloadXml, true);
         },
         clear: function() {
             $(this.selector).data('modelView', null);

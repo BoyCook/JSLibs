@@ -114,17 +114,23 @@ XSLT.prototype.paginate = function(element, pageStartKey, pageEndKey, startValue
         this.transform(element, modelView.xsl, modelView.xml, paginateCallBack, modelView.pageCallBackSelector, modelView.params.all());
     }
 };
-XSLT.prototype.filterable = function(containerId, filterKey, onEnter, callBack) {
+XSLT.prototype.filterable = function(containerId, inputContainerId, filterKey, onEnter, callBack) {
     var context = this;
     var childId = containerId + 'Child';
     var modelView = $(containerId).data('modelView');
     var filterId = childId.substring(1) + 'FilterTxt';
     var filterBoxId = childId.substring(1) + 'FilterBox';
     var childDiv = "<div id='" + childId.substring(1) + "' class='filterable-content'></div>";
-    var filterDiv = "<div id='" + filterBoxId + "'><label>Filter: </label><input type='text' id='" + filterId + "'/></div>";
+    var filterInput = "<input type='text' id='" + filterId + "'/>";
+    var filterDiv = "<div id='" + filterBoxId + "'><label>Filter: </label>" + filterInput + "</div>";
     var msg = modelView.filterBoxMessage != undefined ? modelView.filterBoxMessage : (onEnter ? 'Hit enter to filter...' : 'Type to filter...');
     var contents = $(containerId).children().remove();
-    $(containerId).append($(filterDiv));
+    if(inputContainerId) {
+        $('#' + filterId).remove();
+        $(inputContainerId).append($(filterInput));
+    } else {
+        $(containerId).append($(filterDiv));
+    }
     $(containerId).append($(childDiv));
     $(childId).append(contents);
     $(childId).data('modelView', modelView);
@@ -254,7 +260,7 @@ XSLT.prototype.pagination = function(containerId, pageStartKey, pageEndKey, page
     });
 
 };
-XSLT.prototype.loadModelView = function(element, reloadXml, transform, paginate) {
+XSLT.prototype.loadModelView = function(element, inputContainer, reloadXml, transform, paginate) {
     var modelView = $(element).data('modelView');
     var context = this;
     if (modelView != undefined) {
@@ -273,7 +279,7 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform, paginate)
                         if (modelView.callBack) {
                             modelView.callBack();
                         }
-                        context.filterable(element, modelView.filterKey, true, modelView.filterCallBack);
+                        context.filterable(element, inputContainer, modelView.filterKey, true, modelView.filterCallBack);
                         $(element + 'Child').html("<h3>" + modelView.filterAreaMessage + "</h3>");
                     } else {
                         var newCallBack = function(data) {
@@ -283,7 +289,7 @@ XSLT.prototype.loadModelView = function(element, reloadXml, transform, paginate)
                             if(paginate) {
                                 context.pagination(element, modelView.pageStartKey, modelView.pageEndKey, modelView.pageRange, modelView.pageMax, modelView.pageCallBack);
                             } else {
-                                context.filterable(element, modelView.filterKey, false, modelView.filterCallBack);
+                                context.filterable(element, inputContainer, modelView.filterKey, false, modelView.filterCallBack);
                             }
                             if (modelView.filterCallBack) {
                                 modelView.filterCallBack(data);
