@@ -175,7 +175,7 @@ XSLT.prototype.filterable = function(containerId, inputContainerId, filterKey, o
         $('#' + filterBoxId + ' label').remove();
     }
 };
-XSLT.prototype.pagination = function(containerId, pageStartKey, pageEndKey, pageRange, totalRecords, callBack) {
+XSLT.prototype.pagination = function(containerId, inputContainerId, pageStartKey, pageEndKey, pageRange, totalRecords, callBack) {
     var context = this;
     var childId = containerId + 'Child';
     var modelView = $(containerId).data('modelView');
@@ -193,21 +193,30 @@ XSLT.prototype.pagination = function(containerId, pageStartKey, pageEndKey, page
     }
 
     var childDiv = "<div id='" + childId.substring(1) + "' class='filterable-content'></div>";
-    var paginationDiv = "<div id='" + paginationId + "'>" +
-        "<button id='" + startButtonId + "' disabled=''>Start</button>" +
-        "<button id='" + previousButtonId + "' disabled=''>Previous</button>";
+    var startButton = "<button id='" + startButtonId + "' disabled='' class='paging-content'>Start</button>";
+    var previousButton = "<button id='" + previousButtonId + "' disabled='' class='paging-content'>Previous</button>";
+    var nextButton;
+    var endButton;
+    var paginationDiv = "<div id='" + paginationId + "'>" + startButton + previousButton;
     if(totalRecords <= pageRange) {
         maxPages = 1;
-        paginationDiv += "<button id='" + nextButtonId + "' disabled=''>Next</button>" +
-            "<button id='" + endButtonId + "' disabled=''>End</button>";
+        nextButton = "<button id='" + nextButtonId + "' disabled='' class='paging-content'>Next</button>";
+        endButton = "<button id='" + endButtonId + "' disabled='' class='paging-content'>End</button>";
     } else {
-        paginationDiv += "<button id='" + nextButtonId + "'>Next</button>" +
-            "<button id='" + endButtonId + "'>End</button>";
+        nextButton = "<button id='" + nextButtonId + "' class='paging-content'>Next</button>";
+        endButton = "<button id='" + endButtonId + "' class='paging-content'>End</button>";
     }
-    paginationDiv += "<i style='padding-left: 5px;' id='" + pageInfoId + "'>1 of " + (maxPages) + "</i></div>";
+    paginationDiv += nextButton + endButton;
+    var pageInfo = "<i class='paging-content' style='padding-left: 5px;' id='" + pageInfoId + "'>1 of " + (maxPages) + "</i>";
+    paginationDiv += pageInfo + "</div>";
 
-
-    $(containerId).append($(paginationDiv));
+    if(inputContainerId) {
+        $('.paging-content').remove();
+        var pagingContent = startButton + previousButton + nextButton + endButton + pageInfo;
+        $(inputContainerId).append($(pagingContent));
+    } else {
+        $(containerId).append($(paginationDiv));
+    }
     $(containerId).append($(childDiv));
     $(childId).append($(containerId + ' table:first').remove());
     $(childId).data('modelView', modelView);
@@ -287,7 +296,7 @@ XSLT.prototype.loadModelView = function(element, inputContainer, reloadXml, tran
                                 modelView.callBack(data);
                             }
                             if(paginate) {
-                                context.pagination(element, modelView.pageStartKey, modelView.pageEndKey, modelView.pageRange, modelView.pageMax, modelView.pageCallBack);
+                                context.pagination(element, inputContainer, modelView.pageStartKey, modelView.pageEndKey, modelView.pageRange, modelView.pageMax, modelView.pageCallBack);
                             } else {
                                 context.filterable(element, inputContainer, modelView.filterKey, false, modelView.filterCallBack);
                             }
