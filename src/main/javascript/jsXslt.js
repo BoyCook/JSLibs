@@ -78,11 +78,16 @@ XSLT.prototype.transform = function (element, processor, xml, callBack, callBack
         }
     }
 };
-XSLT.prototype.filter = function(element, filterKey, filterValue, callBack) {
+XSLT.prototype.filter = function(element, filterKey, filterValue, callBack, params) {
     var modelView = $(element).data('modelView');
     if (modelView != undefined) {
         modelView.filterParams.put(filterKey, filterValue);
-        var params = modelView.filterParams.all().concat(modelView.params.all());
+        if(params) {
+            params = modelView.filterParams.all().concat(params.all());
+        } else {
+            params = modelView.filterParams.all().concat(modelView.params.all());
+        }
+
         var filterCallBack = function(data) {
             if (callBack) {
                 callBack(data);

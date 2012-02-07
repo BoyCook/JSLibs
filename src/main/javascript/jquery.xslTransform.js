@@ -112,7 +112,7 @@
             $(this.selector).html('');
         },
         filter: function(params) {
-            engine.filter(this.selector, params.filterKey, params.filterValue, params.callBack);
+            engine.filter(this.selector, params.filterKey, params.filterValue, params.callBack, params.params);
         },
         loadXsl: function(xslUrl) {
             engine.loadXsl(xslUrl);
