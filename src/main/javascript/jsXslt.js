@@ -127,7 +127,12 @@ XSLT.prototype.filterable = function(containerId, inputContainerId, filterKey, o
     var filterBoxId = childId.substring(1) + 'FilterBox';
     var childDiv = "<div id='" + childId.substring(1) + "' class='filterable-content'></div>";
     var filterInput = "<input type='text' id='" + filterId + "'/>";
-    var filterDiv = "<div id='" + filterBoxId + "'><label>Filter: </label>" + filterInput + "</div>";
+    var filterButton = "<button id='" +  filterId + "Button'>Filter</button>"
+    var filterDiv = "<div id='" + filterBoxId + "'><label>Filter: </label>" + filterInput;
+    if(onEnter) {
+        filterDiv += filterButton;
+    }
+    filterDiv += "</div>";
     var msg = modelView.filterBoxMessage != undefined ? modelView.filterBoxMessage : (onEnter ? 'Hit enter to filter...' : 'Type to filter...');
     var contents = $(containerId).children().remove();
     if(inputContainerId) {
@@ -162,6 +167,9 @@ XSLT.prototype.filterable = function(containerId, inputContainerId, filterKey, o
     };
 
     if (onEnter) {
+        $('#' + filterId + 'Button').click(function(e) {
+            filterHandler();
+        });
         $('#' + filterId).keyup(function(e) {
             if (e.keyCode == 13) {
                 filterHandler();
