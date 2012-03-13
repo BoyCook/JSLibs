@@ -126,6 +126,9 @@
         addXml: function(url, xml) {
             engine.addXml(url, xml);
         },
+        removeXml: function(url) {
+            engine.removeXml(url);
+        },
         getXml: function(url) {
             return engine.getXml(url);
         }

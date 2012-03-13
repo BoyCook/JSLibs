@@ -57,6 +57,7 @@
 	                    <include>jsString.js</include>
                         <include>http.utils.js</include>
                         <include>xml.utils.js</include>
+                        <include>jsXslt.js</include>
                     </sourceIncludes>
                 </configuration>
             </plugin>

@@ -43,7 +43,9 @@ Map.prototype.removeByKey = function(key) {
     this.removeByIndex(index);
 };
 Map.prototype.removeByIndex = function(index) {
-    this.array.splice(index, 1);
+    if(index != -1) {
+        this.array.splice(index, 1);
+    }
 };
 Map.prototype.clear = function() {
     this.array = new Array(0);

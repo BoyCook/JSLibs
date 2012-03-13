@@ -60,6 +60,13 @@ describe('Map', function(){
         expect(map.size()).toEqual(4);
     });
 
+    it('should not remove any item by index when it does not exist', function(){
+        map.removeByIndex(99);
+        var person = map.get('Charles');
+        expect(person).not.toBeUndefined();
+        expect(map.size()).toEqual(5);
+    });
+
     it('should remove item by key correctly', function(){
         map.removeByKey('Charles');
         var person = map.get('Charles');
@@ -67,11 +74,25 @@ describe('Map', function(){
         expect(map.size()).toEqual(4);
     });
 
+    it('should not remove any item by key when key does not exist', function(){
+        map.removeByKey('Ben');
+        var person = map.get('Ben');
+        expect(person).toBeUndefined();
+        expect(map.size()).toEqual(5);
+    });
+
     it('should remove item correctly', function(){
         map.remove('Charles Care');
         var person = map.get('Charles');
         expect(person).toBeUndefined();
         expect(map.size()).toEqual(4);
+    });
+
+    it('should not remove any item when item does not exist', function(){
+        map.remove('Ben');
+        var person = map.get('Ben');
+        expect(person).toBeUndefined();
+        expect(map.size()).toEqual(5);
     });
 
     it('should return all correctly', function(){

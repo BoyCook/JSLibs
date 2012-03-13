@@ -372,6 +372,9 @@ XSLT.prototype.loadXml = function(xmlUrl, reload, callBack) {
 XSLT.prototype.addXml = function(url, xml) {
     this.xmls.put(url, xml);
 };
+XSLT.prototype.removeXml = function(url) {
+    this.xmls.removeByKey(url);
+};
 XSLT.prototype.getXml = function(url) {
     return this.xmls.get(url);
 };
