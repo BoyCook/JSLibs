@@ -167,8 +167,15 @@
             checkClass: 'validate-name',
             errorClass: 'error',
             inputErrorClass: 'error',
-            errorMessage: 'Name must not contain special characters',
+            errorMessage: 'Name must contain only letters, numbers and hyphens',
             pattern: "^[a-zA-Z0-9äöüÄÖÜ\-]*$"
+        },
+        {
+            checkClass: 'validate-displayname',
+            errorClass: 'error',
+            inputErrorClass: 'error',
+            errorMessage: "Display name must not contain special characters",
+            pattern: "^[\\d\\w\\s\\(\\)\\*\\.\\!\\:\\;\\-\\~\\+\\=\\@\\?\\#',äöüÄÖÜ\-]*$"
         },
         {
             checkClass: 'validate-dd',

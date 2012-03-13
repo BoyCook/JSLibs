@@ -15,6 +15,45 @@ describe('Validator', function() {
         checkValidation('some name', 'validate-name', false);
     });
 
+    it('should validate display name correctly', function() {
+        checkValidation('SomeName', 'validate-displayname', true);
+        checkValidation('somename', 'validate-displayname', true);
+        checkValidation('some-name', 'validate-displayname', true);
+        checkValidation('some_name', 'validate-displayname', true);
+        checkValidation('some~name', 'validate-displayname', true);
+        checkValidation('some*name', 'validate-displayname', true);
+        checkValidation('some name', 'validate-displayname', true);
+        checkValidation('some(name)', 'validate-displayname', true);
+        checkValidation('some,name', 'validate-displayname', true);
+        checkValidation('some.name', 'validate-displayname', true);
+        checkValidation('some+name', 'validate-displayname', true);
+        checkValidation('some=name', 'validate-displayname', true);
+        checkValidation('some@name', 'validate-displayname', true);
+        checkValidation('some?name', 'validate-displayname', true);
+        checkValidation('some#name', 'validate-displayname', true);
+        checkValidation('some:name', 'validate-displayname', true);
+        checkValidation('some;name', 'validate-displayname', true);
+        checkValidation('some!name', 'validate-displayname', true);
+        checkValidation('Some! name -_~*(),.+=@?#:;', 'validate-displayname', true);
+
+        checkValidation('some{}name', 'validate-displayname', false);
+        checkValidation('some|name', 'validate-displayname', false);
+        checkValidation('some&name', 'validate-displayname', false);
+        checkValidation('some%name', 'validate-displayname', false);
+        checkValidation('some<>name', 'validate-displayname', false);
+        checkValidation('some[]name', 'validate-displayname', false);
+        checkValidation('some¬name', 'validate-displayname', false);
+        checkValidation('some`name', 'validate-displayname', false);
+        checkValidation('some/name', 'validate-displayname', false);
+        checkValidation('some\\name', 'validate-displayname', false);
+        checkValidation('some"name', 'validate-displayname', false);
+        checkValidation('some£name', 'validate-displayname', false);
+        checkValidation('some$name', 'validate-displayname', false);
+        checkValidation('some^name', 'validate-displayname', false);
+        checkValidation("Some{} name|&%¬`/\\\"£$^<>", 'validate-displayname', false);
+
+    });
+
     it('should validate-dd correctly', function() {
         checkValidation('some value', 'validate-dd', true);
         checkValidation(undefined, 'validate-dd', false);
@@ -60,12 +99,12 @@ describe('Validator', function() {
     it('should get all rules correctly', function() {
         var rules = $().validate('getRules');
         expect(rules).toBeDefined();
-        expect(rules.length).toEqual(7);
+        expect(rules.length).toEqual(8);
     });
 
     it('should add rules correctly', function() {
         var originalRules = $().validate('getRules');
-        expect(originalRules.length).toEqual(7);
+        expect(originalRules.length).toEqual(8);
 
         var newRules = [
             {
@@ -86,8 +125,8 @@ describe('Validator', function() {
 
         var addedRules = $().validate('addRules', newRules);
         var rules = $().validate('getRules');
-        expect(addedRules.length).toEqual(9);
-        expect(rules.length).toEqual(9);
+        expect(addedRules.length).toEqual(10);
+        expect(rules.length).toEqual(10);
 
         checkValidation('craigcook.co.uk', 'bob', false);
         checkValidation('bob', 'bob', true);
@@ -110,8 +149,8 @@ describe('Validator', function() {
         ];
         var addedRules = $().validate('addRules', newRules);
         var rules = $().validate('getRules');
-        expect(addedRules.length).toEqual(10);
-        expect(rules.length).toEqual(10);
+        expect(addedRules.length).toEqual(11);
+        expect(rules.length).toEqual(11);
 
         checkValidation('craigcook.co.uk', 'foobar', false);
         checkValidation('foobar', 'foobar', true);
