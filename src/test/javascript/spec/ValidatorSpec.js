@@ -24,6 +24,7 @@ describe('Validator', function() {
         checkValidation('some*name', 'validate-displayname', true);
         checkValidation('some name', 'validate-displayname', true);
         checkValidation('some(name)', 'validate-displayname', true);
+        checkValidation('some[name]', 'validate-displayname', true);
         checkValidation('some,name', 'validate-displayname', true);
         checkValidation('some.name', 'validate-displayname', true);
         checkValidation('some+name', 'validate-displayname', true);
@@ -34,14 +35,13 @@ describe('Validator', function() {
         checkValidation('some:name', 'validate-displayname', true);
         checkValidation('some;name', 'validate-displayname', true);
         checkValidation('some!name', 'validate-displayname', true);
-        checkValidation('Some! name -_~*(),.+=@?#:;', 'validate-displayname', true);
+        checkValidation('1Some! name -_~*(),.+=@?#:;', 'validate-displayname', true);
 
         checkValidation('some{}name', 'validate-displayname', false);
         checkValidation('some|name', 'validate-displayname', false);
         checkValidation('some&name', 'validate-displayname', false);
         checkValidation('some%name', 'validate-displayname', false);
         checkValidation('some<>name', 'validate-displayname', false);
-        checkValidation('some[]name', 'validate-displayname', false);
         checkValidation('some¬name', 'validate-displayname', false);
         checkValidation('some`name', 'validate-displayname', false);
         checkValidation('some/name', 'validate-displayname', false);

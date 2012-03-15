@@ -175,7 +175,7 @@
             errorClass: 'error',
             inputErrorClass: 'error',
             errorMessage: "Display name must not contain special characters",
-            pattern: "^[\\d\\w\\s\\(\\)\\*\\.\\!\\:\\;\\-\\~\\+\\=\\@\\?\\#',äöüÄÖÜ\-]*$"
+            pattern: "^[\\d\\w\\s\\(\\)\\[\\]\\*\\.\\!\\:\\;\\-\\~\\+\\=\\@\\?\\#',äöüÄÖÜ\-]*$"
         },
         {
             checkClass: 'validate-dd',
