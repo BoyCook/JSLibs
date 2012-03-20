@@ -89,13 +89,14 @@ XSLT.prototype.filter = function(element, filterKey, filterValue, callBack, para
         }
 
         var filterCallBack = function(data) {
-            if (callBack) {
-                callBack(data);
-            }
 
             var radioButtons = $(element + ' input:radio');
             if (radioButtons.length == 1) {
                 radioButtons.attr('checked', true);
+            }
+
+            if (callBack) {
+                callBack(data);
             }
         };
         this.transform(element, modelView.xsl, modelView.xml, filterCallBack, modelView.filterCallBackSelector, params);
