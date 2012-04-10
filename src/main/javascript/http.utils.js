@@ -15,6 +15,7 @@ function HTTPService() {
 	this.mappings.put('200', 'Ok');
 	this.mappings.put('201', 'Created');
 	this.mappings.put('205', 'Updated');
+	this.mappings.put('400', 'Bad Request');
 	this.mappings.put('401', 'You are not authorized - check your team memberships');
 	this.mappings.put('404', 'Resource not found - try another search');
 	this.mappings.put('409', 'Resource conflict - try another name');
