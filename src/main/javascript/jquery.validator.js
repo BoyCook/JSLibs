@@ -167,7 +167,7 @@
             checkClass: 'validate-name',
             errorClass: 'error',
             inputErrorClass: 'error',
-            errorMessage: 'Name must contain only letters, numbers and hyphens',
+            errorMessage: 'Name must contain letter, numbers, and hyphens only. Leading/trailing spaces and non-displayable characters not allowed.',
             pattern: "^[a-zA-Z0-9äöüÄÖÜ\-]*$"
         },
         {
