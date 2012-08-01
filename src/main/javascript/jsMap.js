@@ -34,6 +34,9 @@ Map.prototype.get = function(key) {
 Map.prototype.getAtIndex = function(index) {
     return this.array[index].value;
 };
+Map.prototype.getKeyAtIndex = function(index) {
+    return this.array[index].key;
+};
 Map.prototype.remove = function(value) {
     var index = this.getIndexOfValue(value);
     this.removeByIndex(index);

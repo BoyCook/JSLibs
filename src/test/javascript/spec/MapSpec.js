@@ -48,6 +48,11 @@ describe('Map', function(){
         expect(person).toEqual('Craig Cook');
     });
 
+    it('should get key by index correctly', function(){
+        var person = map.getKeyAtIndex(0);
+        expect(person).toEqual('Craig');
+    });
+
     it('should clear correctly', function(){
         map.clear();
         expect(map.size()).toEqual(0);
