@@ -2,6 +2,6 @@
 
 It's modules have been split into the following separate repos:
 
-https://github.com/BoyCook/HintBoxJS
-https://github.com/BoyCook/XSLTJS
-https://github.com/BoyCook/ValidatorJS
+* https://github.com/BoyCook/HintBoxJS
+* https://github.com/BoyCook/XSLTJS
+* https://github.com/BoyCook/ValidatorJS
