@@ -1,6 +1,6 @@
-# About
+# This repository is now deprecated
 
-This repository is now deprecated. It's modules have been split into the following separate repos:
+It's modules have been split into the following separate repos:
 
 https://github.com/BoyCook/HintBoxJS
 https://github.com/BoyCook/XSLTJS
